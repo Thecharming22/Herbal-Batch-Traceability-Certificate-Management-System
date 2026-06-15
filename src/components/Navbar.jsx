@@ -6,9 +6,15 @@ function Navbar() {
 
       {/* Left Logo */}
       <div className="w-1/4">
-        <h1 className="logo-text text-2xl font-extrabold cursor-pointer transition-all duration-300 hover:scale-105">
-          Herbal Traceability
-        </h1>
+<h1 
+  className="logo-text text-2xl font-extrabold cursor-pointer 
+             transition-all duration-300 hover:scale-105"
+>
+  Herbal Traceability
+</h1>
+
+
+
       </div>
 
       {/* Center Navigation */}

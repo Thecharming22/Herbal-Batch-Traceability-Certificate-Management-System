@@ -1,17 +1,38 @@
-function Certifications() {
+import React from "react";
+
+export default function Certifications() {
   return (
-    <section className="py-20 px-10 bg-green-100 text-center">
-      <h2 className="text-4xl font-bold mb-10 text-green-900">Certifications</h2>
-      <div className="flex justify-center gap-12">
-        <img src="/assets/ayush.png" alt="AYUSH Certified" className="h-20" />
-        <img src="/assets/lab.png" alt="Lab Tested" className="h-20" />
-        <img src="/assets/eco.png" alt="Eco Friendly" className="h-20" />
+    <section className="relative h-[455px] md:h-[555px] lg:h-[655px] w-full overflow-hidden">
+      {/* BACKGROUND VIDEO */}
+      <video
+        className="absolute top-0 left-0 w-full h-full object-cover"
+        autoPlay
+        muted
+        loop
+        playsInline
+      >
+        <source src="/lab-testing.mp4" type="video/mp4" />
+      </video>
+
+      {/* DARK OVERLAY */}
+      <div className="absolute inset-0 bg-gradient-to-b from-green-950/70 via-black/40 to-green-900/70 flex flex-col items-center justify-center text-center px-6">
+        
+        {/* TITLE */}
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold 
+                       text-green-600 drop-shadow-lg mb-4 
+                       animate-smoothMove">
+          Certifications
+        </h2>
+
+        <p className="text-green-100 max-w-2xl text-sm md:text-base lg:text-lg">
+          Every batch is tested, verified, and certified under strict quality standards
+          ensuring purity, safety, and transparency from farm to final product.
+        </p>
+        <p className="text-green-100 max-w-2xl text-sm md:text-base lg:text-lg mt-4">
+AYUSH certification from India’s Ministry of AYUSH ensures herbal oils meet 
+  strict purity and authenticity standards, serving as a trusted seal of quality.
+</p>
       </div>
-      <p className="mt-6 text-lg text-green-700 italic">
-        Every batch verified and certified for purity.
-      </p>
     </section>
   );
 }
-
-export default Certifications;

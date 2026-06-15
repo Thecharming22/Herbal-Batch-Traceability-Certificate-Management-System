@@ -155,13 +155,9 @@ body {
 .logo-text {
   font-style: italic;
   letter-spacing: 0.5px;
-  color: #e5e7eb; /* normal soft white/gray */
-  transition: all 0.3s ease;
   position: relative;
-}
 
-/* hover = gold sparkle mode */
-.logo-text:hover {
+  /* Golden gradient always applied */
   background: linear-gradient(
     90deg,
     #fff3b0,
@@ -170,21 +166,26 @@ body {
     #ffd700,
     #fff3b0
   );
-
   background-size: 200% auto;
 
   color: transparent;
   background-clip: text;
   -webkit-background-clip: text;
 
-  animation: goldShine 2.5s linear infinite;
+  /* Continuous shimmer animation */
+  animation: goldShine 3s linear infinite;
 
+  /* Glow around text */
   text-shadow:
     0 0 10px rgba(255, 215, 0, 0.4),
     0 0 20px rgba(255, 215, 0, 0.2);
-
-  transform: scale(1.05);
 }
+
+@keyframes goldShine {
+  0% { background-position: -200%; }
+  100% { background-position: 200%; }
+}
+
 /* =========================
    NAV LINKS - GOLD ITALIC SHINE
 ========================= */
@@ -400,4 +401,61 @@ body {
 
 .animate-fadeIn.delay-300 {
   animation-delay: 0.3s;
+}
+@keyframes smoothMove {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+.animate-smoothMove {
+  animation: smoothMove 3s ease-in-out infinite;
+}
+@keyframes shine {
+  0% { background-position: -200px; }
+  100% { background-position: 200px; }
+}
+
+.animate-shine {
+  background-size: 200% auto;
+  animation: shine 3s linear infinite;
+}
+@keyframes shine {
+  0% { background-position: -200px; }
+  100% { background-position: 200px; }
+}
+
+.animate-shine {
+  background-size: 200% auto;
+}
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.6),
+                0 0 20px rgba(255, 215, 0, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.9),
+                0 0 40px rgba(255, 215, 0, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.6),
+                0 0 20px rgba(255, 215, 0, 0.4);
+  }
+}
+
+.animate-glow {
+  animation: glowPulse 2s ease-in-out infinite;
+}
+@keyframes shine {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.animate-shine {
+  background-size: 200% auto;
+  animation: shine 3s linear infinite;
 }
