@@ -1,21 +1,17 @@
 function Footer() {
   return (
-    <footer className="bg-green-900 text-white text-center py-8">
-      <div className="flex justify-center gap-6 mb-4">
-        <a href="#">Home</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
+    <footer className="bg-black text-white text-center py-4">
+      <div className="flex justify-center gap-6 mb-2">
+        <a href="/" className="footer-link">Home</a>
+        <a href="#contact" className="footer-link">Contact</a>
       </div>
 
-      <div className="flex justify-center gap-6 mb-4">
-        <a href="#">GitHub</a>
-        <a href="#">LinkedIn</a>
-        <a href="#">Twitter</a>
+      <div className="flex justify-center gap-6 mb-2">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="footer-link">GitHub</a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="footer-link">LinkedIn</a>
       </div>
 
-      <p>
-        © 2026 Herbal Batch Traceability System
-      </p>
+      <p className="text-xs">© 2026 Herbal Batch Traceability System</p>
     </footer>
   );
 }
