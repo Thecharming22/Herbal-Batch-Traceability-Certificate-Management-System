@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Tailwind v4 Dark Mode Support */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* =========================
    HERO ENTRY ANIMATIONS
 ========================= */
@@ -515,8 +518,12 @@ body {
     transform: translateY(0px);
   }
 }
-html, body {
+html,
+body,
+#root {
   margin: 0;
   padding: 0;
-  background-color: #000000; /* pure black */
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
 }
