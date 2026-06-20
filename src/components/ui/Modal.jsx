@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 /**
  * Modal component
  * @param {boolean} isOpen - Whether modal is open
@@ -6,6 +8,21 @@
  * @param {React.ReactNode} children - Modal content
  */
 export const Modal = ({ isOpen, onClose, title, children }) => {
+  // Escape key close logic
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    if (isOpen) {
+      document.addEventListener("keydown", handleKeyDown);
+    }
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   return (
