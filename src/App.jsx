@@ -9,6 +9,7 @@ import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import About from "./pages/About";   
 import DemoPage from "./pages/DemoPage";   
+import ForgotPassword from "./pages/ForgotPassword";   // ✅ new import
 
 function App() {
   // ✅ Load theme from localStorage
@@ -37,6 +38,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/about" element={<About />} />   
             <Route path="/demo" element={<DemoPage />} />   
+            <Route path="/forgot-password" element={<ForgotPassword />} /> {/* ✅ added route */}
           </Routes>
         </main>
 
