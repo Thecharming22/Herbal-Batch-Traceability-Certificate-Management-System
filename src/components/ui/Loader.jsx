@@ -1,12 +1,9 @@
-/**
- * Loader spinner
- * @param {string} size - Size of loader (sm, md, lg)
- */
-export const Loader = ({ size='md' }) => {
-  const sizes = { sm:'h-4 w-4', md:'h-8 w-8', lg:'h-12 w-12' };
+// src/components/ui/Loader.jsx
+export default function Loader() {
   return (
-    <div className="flex justify-center items-center py-6">
-      <div className={`animate-spin rounded-full border-t-2 border-green-600 ${sizes[size]}`}></div>
+    <div className="flex items-center justify-center mt-4">
+      <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-green-600"></div>
+      <span className="ml-2 text-green-600">Loading...</span>
     </div>
   );
-};
+}

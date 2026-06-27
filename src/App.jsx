@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { Toaster } from "react-hot-toast";   // ✅ Toast import
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -7,9 +8,9 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
-import About from "./pages/About";   
-import DemoPage from "./pages/DemoPage";   
+import About from "./pages/About";      
 import ForgotPassword from "./pages/ForgotPassword";   // ✅ new import
+import Dashboard from "./pages/Dashboard";             // ✅ new import
 
 function App() {
   // ✅ Load theme from localStorage
@@ -36,13 +37,16 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/about" element={<About />} />   
-            <Route path="/demo" element={<DemoPage />} />   
-            <Route path="/forgot-password" element={<ForgotPassword />} /> {/* ✅ added route */}
+            <Route path="/about" element={<About />} />     
+            <Route path="/forgot-password" element={<ForgotPassword />} /> 
+            <Route path="/dashboard" element={<Dashboard />} /> {/* ✅ added route */}
           </Routes>
         </main>
 
         <Footer />
+
+        {/* ✅ Toast container now top-center */}
+        <Toaster position="top-center" />
       </div>
     </BrowserRouter>
   );

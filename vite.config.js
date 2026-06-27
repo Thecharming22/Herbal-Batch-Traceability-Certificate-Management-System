@@ -6,6 +6,6 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
     server: {
     host: '0.0.0.0',   // phone se access allow karega
-    port: 5173         // ya jo port tum use kar rahi ho
+    port: 3000         // ya jo port tum use kar rahi ho
   }
 })
