@@ -6,6 +6,7 @@ import cors from "cors";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import errorHandler from "./middleware/errorHandler.js";
+import batchRoutes from "./routes/batches.js";
 
 dotenv.config();
 const app = express();
@@ -16,6 +17,7 @@ app.use(express.json());
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/batches", batchRoutes);
 
 // Error handler
 app.use(errorHandler);

@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import heroImage from "../assets/herbal-bg.jpg";
 
 function Hero() {
+  const navigate = useNavigate();
+
   return (
     <section className="relative text-center">
 
@@ -31,7 +34,11 @@ function Hero() {
           traceability for essential oil production.
         </p>
 
-        <button className="mt-6 sm:mt-8 bg-green-700 text-white px-6 sm:px-8 py-2 sm:py-3 rounded-lg hover:bg-green-800 transition duration-300 hero-button">
+        {/* ✅ Get Started button → Login page */}
+        <button
+          onClick={() => navigate("/login")}
+          className="mt-6 sm:mt-8 bg-green-700 text-white px-6 sm:px-8 py-2 sm:py-3 rounded-lg hover:bg-green-800 transition duration-300 hero-button"
+        >
           Get Started
         </button>
       </div>

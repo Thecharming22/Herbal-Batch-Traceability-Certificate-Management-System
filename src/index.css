@@ -527,3 +527,16 @@ body,
   min-height: 100%;
   overflow-x: hidden;
 }
+@keyframes shine {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.animate-shine {
+  background-size: 200% auto;
+  animation: shine 3s linear infinite;
+}
