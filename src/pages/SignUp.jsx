@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { FaEnvelope, FaLock, FaUser } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import Loader from "../components/ui/Loader.jsx";   // ✅ direct import
+import Loader from "../components/ui/Loader.jsx";
+import "./Login.css";
 
 export default function Signup() {
   const [name, setName] = useState("");
@@ -10,29 +12,67 @@ export default function Signup() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleSignup = async (e) => {
     e.preventDefault();
-
+if (password.length < 6) {
+  toast.error("Password must be at least 6 characters long.");
+  return;
+}
     if (password !== confirmPassword) {
       toast.error("Passwords do not match!");
       return;
     }
 
     setLoading(true);
+
     try {
       const res = await fetch("http://localhost:5000/api/auth/signup", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+        }),
       });
+
       const data = await res.json();
-      if (res.ok) {
-        toast.success(data.message || "Signup successful");
-      } else {
+if (res.ok) {
+
+  // Login immediately after signup
+  const loginRes = await fetch("http://localhost:5000/api/auth/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email,
+      password,
+    }),
+  });
+
+  const loginData = await loginRes.json();
+
+  if (loginRes.ok) {
+    localStorage.setItem("token", loginData.token);
+
+    toast.success("Account created successfully!");
+
+    navigate("/dashboard");
+  } else {
+    toast.success("Account created. Please login.");
+    navigate("/login");
+  }
+
+} else {
         toast.error(data.message || "Signup failed");
       }
     } catch (err) {
-      console.error("Signup error:", err);
+      console.error(err);
       toast.error("Server error");
     } finally {
       setLoading(false);
@@ -43,7 +83,7 @@ export default function Signup() {
     <section className="relative h-screen w-full overflow-hidden">
       {/* Background Video */}
       <video
-        className="absolute top-0 left-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover"
         autoPlay
         muted
         loop
@@ -52,94 +92,186 @@ export default function Signup() {
         <source src="/flowers.mp4" type="video/mp4" />
       </video>
 
-      {/* Transparent Overlay */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        {/* Signup Box */}
-        <div className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-lg p-12 rounded-2xl shadow-2xl w-[32rem]">
-          <h2 className="text-4xl font-bold mb-8 text-center">Sign Up</h2>
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/30"></div>
 
-          <form className="flex flex-col gap-6" onSubmit={handleSignup}>
-            {/* Name */}
-            <div className="flex flex-col">
-              <label className="text-base font-medium mb-2">Full Name</label>
-              <div className="flex items-center border rounded px-4 py-3 focus-within:border-green-600">
-                <FaUser className="text-gray-500 mr-2" />
-                <input
-                  type="text"
-                  placeholder="Enter your name"
-                  className="flex-1 bg-transparent outline-none"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </div>
+      {/* Main Container */}
+      <div className="absolute inset-0 flex items-center justify-center">
+
+        <div className="loginContainer">
+
+          {/* LEFT GREEN PANEL */}
+          <div className="loginRight">
+
+            <div>
+
+              <h1>
+                🌿 Herbal Traceability
+              </h1>
+
+              <p>
+                Register today to securely manage herbal batches,
+                certificates, dispatch records and AI-powered
+                yield prediction from one smart dashboard.
+              </p>
+
             </div>
 
-            {/* Email */}
-            <div className="flex flex-col">
-              <label className="text-base font-medium mb-2">Email</label>
-              <div className="flex items-center border rounded px-4 py-3 focus-within:border-green-600">
-                <FaEnvelope className="text-gray-500 mr-2" />
+          </div>
+
+          {/* RIGHT BLACK PANEL */}
+          <div
+            className="loginLeft"
+            style={{
+              background: "rgba(0,0,0,.88)",
+            }}
+          >
+
+           <h2 className="loginTitle" style={{ color: "white" }}>
+              Create Account
+            </h2>
+
+            <p
+              className="loginSub"
+              style={{
+                marginBottom: "18px",
+              }}
+            >
+              Join Herbal Traceability and start managing herbal batches securely.
+            </p>
+
+            <form onSubmit={handleSignup}>
+
+              {/* Full Name */}
+                  <label className="fieldLabel" style={{ color: "white" }}>
+                Full Name
+              </label>
+
+              <div className="inputBox">
+                <FaUser />
+                <input
+                  type="text"
+                  placeholder="Enter your full name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                />
+              </div>
+
+              {/* Email */}
+                 <label className="fieldLabel" style={{ color: "white" }}>
+                Email
+              </label>
+
+              <div className="inputBox">
+                <FaEnvelope />
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="flex-1 bg-transparent outline-none"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  required
                 />
               </div>
-            </div>
 
-            {/* Password */}
-            <div className="flex flex-col">
-              <label className="text-base font-medium mb-2">Password</label>
-              <div className="flex items-center border rounded px-4 py-3 focus-within:border-green-600">
-                <FaLock className="text-gray-500 mr-2" />
+              {/* Password */}
+              <label className="fieldLabel">
+                Password
+              </label>
+
+              <div className="inputBox">
+                <FaLock />
                 <input
                   type="password"
-                  placeholder="Create a password"
-                  className="flex-1 bg-transparent outline-none"
+                  placeholder="Create password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  required
                 />
               </div>
-            </div>
 
-            {/* Confirm Password */}
-            <div className="flex flex-col">
-              <label className="text-base font-medium mb-2">Confirm Password</label>
-              <div className="flex items-center border rounded px-4 py-3 focus-within:border-green-600">
-                <FaLock className="text-gray-500 mr-2" />
+              {/* Confirm Password */}
+              <label className="fieldLabel">
+                Confirm Password
+              </label>
+
+              <div className="inputBox">
+                <FaLock />
                 <input
                   type="password"
-                  placeholder="Re-enter your password"
-                  className="flex-1 bg-transparent outline-none"
+                  placeholder="Confirm password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
                 />
               </div>
-            </div>
 
-            {/* Signup Button */}
-            <button
-              type="submit"
-              className="bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 text-lg font-semibold"
-            >
-              Register
-            </button>
-          </form>
+              <button
+                type="submit"
+                className="loginBtn"
+              >
+                Create Account
+              </button>
+<div
+  style={{
+    display: "flex",
+    alignItems: "center",
+    margin: "18px 0",
+  }}
+>
+ <hr
+    style={{
+      flex: 1,
+      border: "none",
+      borderTop: "1px solid rgba(255,255,255,0.4)",
+    }}
+  />
 
-          {/* Loader */}
-          {loading && <Loader />}
+  <span
+    style={{
+      color: "white",
+      margin: "0 12px",
+      fontWeight: "600",
+    }}
+  >
+    OR
+  </span>
 
-          {/* Already have account */}
-          <p className="text-base text-center mt-6">
-            Already have an account?{" "}
-            <a href="/login" className="text-green-600 hover:underline">
-              Login
-            </a>
-          </p>
+  <hr
+    style={{
+      flex: 1,
+      border: "none",
+      borderTop: "1px solid rgba(255,255,255,0.4)",
+    }}
+  />
+</div>
+<button
+  type="button"
+  className="loginBtn"
+  onClick={() => {
+    window.location.href =
+      "http://localhost:5000/api/auth/google";
+  }}
+>
+  Continue with Google
+</button>
+            </form>
+
+            <p className="signupText">
+              Already have an account?{" "}
+              <Link to="/login">
+                Login
+              </Link>
+            </p>
+
+          </div>
+
         </div>
+
       </div>
+
+      {loading && <Loader />}
+
     </section>
   );
 }

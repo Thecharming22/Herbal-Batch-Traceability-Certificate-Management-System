@@ -1,0 +1,201 @@
+.loginContainer {
+  width: 950px;
+  min-height: 660px;
+  display: flex;
+  border-radius: 25px;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 15px 40px rgba(0,0,0,.35);
+}
+
+/* LEFT PANEL */
+
+.loginLeft{
+  width:50%;
+  background:rgba(0,0,0,.85);
+  padding:38px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.loginTitle{
+  color:#fff;
+  font-size:38px;
+  font-weight:700;
+  margin-bottom:8px;
+}
+
+.loginSub{
+  color:#d9d9d9;
+  margin-bottom:30px;
+}
+
+.fieldLabel{
+  display:block;
+  color:#fff;
+  font-weight:600;
+  margin-bottom:8px;
+}
+
+.inputBox{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.15);
+  padding:14px 18px;
+  border-radius:12px;
+      margin-bottom:12px;
+}
+
+.inputBox svg{
+  color:#fff;
+  font-size:18px;
+}
+
+.inputBox input{
+  width:100%;
+  border:none;
+  outline:none;
+  background:transparent;
+  color:#fff;
+  font-size:15px;
+  caret-color:#fff;
+}
+
+.inputBox input::placeholder{
+  color:#d0d0d0;
+}
+
+.remember{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+  font-size:14px;
+}
+
+.remember label{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:#fff;
+}
+
+.remember input[type="checkbox"]{
+  accent-color:#198754;
+}
+
+.remember a{
+  color:#33d17a;
+  text-decoration:none;
+}
+
+.remember a:hover{
+  text-decoration:underline;
+}
+
+.loginBtn{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  background:#198754;
+  color:#fff;
+  font-size:17px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.loginBtn:hover{
+  background:#146c43;
+}
+
+.signupText{
+  margin-top:25px;
+  text-align:center;
+  color:#fff;
+}
+
+.signupText a{
+  color:#33d17a;
+  text-decoration:none;
+  font-weight:600;
+}
+
+.signupText a:hover{
+  text-decoration:underline;
+}
+
+/* RIGHT PANEL */
+.loginRight{
+
+width:50%;
+
+background:linear-gradient(
+135deg,
+#031b10,
+#06351f,
+#0a4b2d
+);
+
+display:flex;
+align-items:center;
+justify-content:center;
+padding:60px;
+text-align:center;
+color:white;
+
+}
+
+.loginRight h1{
+
+font-size:42px;
+font-weight:900;
+margin-bottom:25px;
+
+background:linear-gradient(
+90deg,
+#fff7c2,
+#ffd700,
+#ffef8a,
+#fff7c2
+);
+
+background-size:300% auto;
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
+animation:goldShine 4s linear infinite;
+
+text-shadow:
+0 0 8px rgba(255,215,0,.25),
+0 0 20px rgba(255,215,0,.15);
+
+}
+.loginRight p{
+
+font-size:18px;
+line-height:34px;
+font-weight:600;
+
+color:#f9e79f;
+
+text-shadow:
+0 0 6px rgba(255,215,0,.12);
+
+}
+@keyframes goldShine{
+
+0%{
+background-position:0%;
+}
+
+100%{
+background-position:300%;
+}
+
+}

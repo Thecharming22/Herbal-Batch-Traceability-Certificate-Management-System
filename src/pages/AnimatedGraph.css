@@ -1,0 +1,135 @@
+.graphFrame {
+  width: 100%;
+  height: 320px;
+
+background: #cfcfcf;
+  border-radius: 12px;
+
+  padding: 25px 30px 50px;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  gap: 180px;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  position: relative;
+}
+
+/* Hide scrollbar */
+.graphFrame::-webkit-scrollbar {
+  display: none;
+}
+
+/* Horizontal Grid Lines */
+.graphFrame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background:
+    repeating-linear-gradient(
+      to top,
+      transparent 0,
+      transparent 24.5%,
+      rgba(255,255,255,0.95) 25%
+    );
+
+  pointer-events: none;
+}
+
+/* Each Bar */
+.graphBarWrapper {
+  width: 42px;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+
+  flex-shrink: 0;
+}
+
+/* Animated Bar */
+.graphBar {
+  width: 32px;
+  height: 0;
+
+  background: linear-gradient(
+    to top,
+    #1b5e20 0%,
+    #2e7d32 25%,
+    #43a047 55%,
+    #66bb6a 75%,
+    #fbc02d 100%
+  );
+
+  border-radius: 6px 6px 0 0;
+
+  position: relative;
+
+  animation: growBar 1.2s forwards;
+
+  box-shadow:
+    0 4px 10px rgba(0,0,0,.18),
+    inset 0 0 8px rgba(255,255,255,.25);
+
+  transition: all .3s ease;
+}
+
+.graphBar:hover{
+  transform: scaleY(1.05);
+  filter: brightness(1.08);
+}
+
+/* Value */
+.graphValue{
+  position:absolute;
+
+  top:-25px;
+  left:50%;
+
+  transform:translateX(-50%);
+
+  font-size:13px;
+  font-weight:600;
+
+  color:#333;
+
+  white-space:nowrap;
+}
+
+/* Batch ID */
+.graphLabel{
+
+  margin-top:12px;
+
+  transform:rotate(30deg);
+
+  font-size:14px;
+
+  color:#555;
+
+  font-weight:500;
+
+  letter-spacing:.4px;
+
+  white-space:nowrap;
+}
+
+/* Animation */
+@keyframes growBar{
+
+  from{
+      height:0;
+      opacity:0;
+  }
+
+  to{
+      opacity:1;
+  }
+
+}

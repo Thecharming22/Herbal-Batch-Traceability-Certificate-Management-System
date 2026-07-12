@@ -1,29 +1,31 @@
 import Hero from "../components/Hero";
-import Card from "../components/Card";
 import About from "./About";
 import Certifications from "../components/Certifications";
 import ProductShowcase from "../components/ProductShowcase";
-import AIInsights from "../components/AIInsights";   // ✅ add this import
+import AIInsights from "../components/AIInsights";
+import { Navigate } from "react-router-dom";
 
 function Home() {
+
+  const token =
+    localStorage.getItem("token") ||
+    sessionStorage.getItem("token");
+
+  if (token) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
   return (
     <>
-      {/* HERO */}
       <Hero />
 
-      {/* ABOUT SECTION */}
       <About />
 
-      {/* CERTIFICATIONS */}
       <Certifications />
 
-      {/* PRODUCT SHOWCASE */}
       <ProductShowcase />
 
-      {/* AI SECTION */}
       <AIInsights />
-
-      {/* Other homepage sections */}
     </>
   );
 }

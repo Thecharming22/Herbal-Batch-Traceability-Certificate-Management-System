@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
+
+
+.profile-container {
+
+  flex: 1;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+
+  background-size: cover;
+
+  background-repeat: no-repeat;
+
+  min-height: 100vh;
+
+}
+
+/* Main Profile Card */
+
+.cont {
+
+  position: relative;
+
+  width: 500px;
+
+  height: 580px;
+
+  background: white;
+
+  margin-top: 50px;
+
+  margin-bottom: 50px;
+
+  text-align: center;
+
+}
+/* Profile Image */
+
+.profile {
+
+  position: absolute;
+
+  top: 40px;
+
+  left: 150px;
+
+  width: 200px;
+
+  height: 200px;
+
+  border-radius:50%;
+
+  border:5px solid rgb(200,200,200);
+
+  transition:.3s;
+
+  background-repeat:no-repeat;
+
+  background-position:center;
+
+  background-size:cover;
+
+  cursor:pointer;
+
+}
+
+
+
+.profile:hover {
+
+  top: 35px;
+
+  left: 145px;
+
+  border: 10px solid rgb(150,150,150);
+
+}
+
+/* Profile Information */
+
+.info {
+
+  position: absolute;
+
+  top: 250px;
+
+  left: 120px;
+
+  width: 260px;
+
+  height: 220px;
+
+  text-align: center;
+
+  font-family: 'Source Sans Pro', sans-serif;
+
+}
+
+
+
+.info h3 {
+
+  font-size: 22px;
+
+  font-weight: 700;
+
+  margin-bottom: 20px;
+
+}
+
+
+
+.info p {
+
+  font-size: 15px;
+
+  line-height: 1.5;
+
+  color: #333;
+
+}
+
+.logout-btn {
+
+  position: absolute;
+
+  bottom: 20px;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  padding: 10px 30px;
+
+  background: #dc2626;
+
+  color: white;
+
+  border: none;
+
+  border-radius: 6px;
+
+  font-size: 15px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+
+}
+
+
+.logout-btn:hover {
+
+  background: #b91c1c;
+
+}

@@ -2,7 +2,8 @@
 import "./AddBatch.css";
 import Sidebar from "../components/Sidebar";
 import { useState } from "react";
-
+import toast from "react-hot-toast";
+import purpleImg from "../assets/purple.jpg";
 export default function AddBatch() {
   const [formData, setFormData] = useState({
     plantVariety: "",
@@ -20,48 +21,57 @@ export default function AddBatch() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      const res = await fetch("http://localhost:5000/api/batches", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+  try {
+   const token =
+  localStorage.getItem("token") ||
+  sessionStorage.getItem("token");
 
-      const data = await res.json();
+    const res = await fetch("http://localhost:5000/api/batches", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(formData),
+    });
 
-      if (!res.ok) {
-        throw new Error(data.message || "Failed to save batch");
-      }
+    const data = await res.json();
 
-      alert("✅ Batch saved successfully!");
-      console.log("Saved batch:", data);
-
-      // Reset form
-      setFormData({
-        plantVariety: "",
-        harvestDate: "",
-        distillationDate: "",
-        yield: "",
-        certificateFileName: "",
-      });
-
-    } catch (err) {
-      console.error("Error saving batch:", err);
-      alert("❌ " + err.message);
+    if (!res.ok) {
+      throw new Error(data.message || "Failed to save batch");
     }
-  };
 
+    toast.success("Batch added successfully!");
+    console.log("Saved batch:", data);
+
+    // Reset form
+    setFormData({
+      plantVariety: "",
+      harvestDate: "",
+      distillationDate: "",
+      yield: "",
+      certificateFileName: "",
+    });
+
+  } catch (err) {
+    console.error("Error saving batch:", err);
+    toast.error(err.message || "Failed to save batch");
+  }
+};
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
       <Sidebar />
 
       {/* Main Content */}
-      <div className="flex-1 flex items-center justify-center p-6 bg-gray-100/70 backdrop-blur-md">
+     <div
+  className="flex-1 flex items-center justify-center p-6 bg-cover bg-center"
+  style={{
+    backgroundImage: `url(${purpleImg})`
+  }}
+>
         <div className="book">
           {/* Cover text */}
           <div className="cover">

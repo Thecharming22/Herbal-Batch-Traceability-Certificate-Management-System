@@ -16,7 +16,9 @@ import AddBatch from "./pages/AddBatch";
 import BatchRecords from "./pages/BatchRecords";
 import AIInsights from "./pages/AIInsights";
 import Profile from "./pages/Profile";   // ✅ new import
-
+import ProtectedRoute from "./components/ProtectedRoute";
+import GoogleSuccess from "./pages/GoogleSuccess";
+import ResetPassword from "./pages/ResetPassword";
 // ✅ Inner component that can use useLocation
 function AppContent({ theme, setTheme }) {
   const location = useLocation();
@@ -40,11 +42,51 @@ function AppContent({ theme, setTheme }) {
           <Route path="/login" element={<Login />} />
           <Route path="/about" element={<About />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/add-batch" element={<AddBatch />} />
-          <Route path="/batch-records" element={<BatchRecords />} />
-          <Route path="/ai-insights" element={<AIInsights />} />
-          <Route path="/profile" element={<Profile />} /> {/* ✅ added route */}
+          <Route path="/google-success" element={<GoogleSuccess />}/>
+          <Route path="/reset-password/:token" element={<ResetPassword />}/>
+
+        <Route
+  path="/dashboard"
+  element={
+    <ProtectedRoute>
+      <Dashboard />
+    </ProtectedRoute>
+  }
+/>
+         <Route
+  path="/add-batch"
+  element={
+    <ProtectedRoute>
+      <AddBatch />
+    </ProtectedRoute>
+  }
+/>
+          
+<Route
+  path="/batch-records"
+  element={
+    <ProtectedRoute>
+      <BatchRecords />
+    </ProtectedRoute>
+  }
+/>
+         <Route
+  path="/ai-insights"
+  element={
+    <ProtectedRoute>
+      <AIInsights />
+    </ProtectedRoute>
+  }
+/>
+          
+<Route
+  path="/profile"
+  element={
+    <ProtectedRoute>
+      <Profile />
+    </ProtectedRoute>
+  }
+/>
         </Routes>
       </main>
 

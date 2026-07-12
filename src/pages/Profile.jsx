@@ -1,83 +1,175 @@
 // src/pages/Profile.jsx
-import Sidebar from "../components/Sidebar";
 
+import Sidebar from "../components/Sidebar";
+import { useEffect, useState } from "react";
+import "./Profile.css";
+import MountainBg from "../assets/mountain.jpg";
 export default function Profile() {
+const [profileImage, setProfileImage] = useState("");
+  const [profile, setProfile] = useState(null);
+
+
+  useEffect(() => {
+
+  const fetchProfile = async () => {
+
+    const token = localStorage.getItem("token");
+
+    const res = await fetch(
+      "http://localhost:5000/api/auth/profile",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const data = await res.json();
+
+    setProfile(data);
+
+    if (data.profileImage) {
+      setProfileImage(data.profileImage);
+    }
+  };
+
+  fetchProfile();
+
+}, []);
+
+
+
   return (
+
     <div className="flex min-h-screen">
-      {/* Sidebar */}
+
+
+      {/* Sidebar same rahega */}
       <Sidebar />
 
-      {/* Main Content */}
-      <div className="flex-1 p-6 bg-gray-100/70 backdrop-blur-md">
-        <div className="bg-green-900/100 backdrop-blur-sm text-white shadow-lg p-6 rounded-lg">
-          <h2 className="text-2xl font-extrabold 
-                         bg-gradient-to-r from-yellow-400 via-yellow-200 to-yellow-500 
-                         bg-clip-text text-transparent animate-shine">
-            👤 Profile
-          </h2>
 
-          {/* Profile Details */}
-          <div className="border-t border-gray-400 pt-4 mt-4 space-y-6">
-            <div>
-              <h3 className="text-xl font-bold 
-                             bg-gradient-to-r from-yellow-400 via-yellow-200 to-yellow-500 
-                             bg-clip-text text-transparent animate-shine">
-                Name
-              </h3>
-              <p className="text-lg mt-2">Admin</p>
-            </div>
 
-            <div>
-              <h3 className="text-xl font-bold 
-                             bg-gradient-to-r from-yellow-400 via-yellow-200 to-yellow-500 
-                             bg-clip-text text-transparent animate-shine">
-                Email
-              </h3>
-              <p className="text-lg mt-2">admin@herbal.com</p>
-            </div>
+      {/* Profile Area */}
 
-            <div>
-              <h3 className="text-xl font-bold 
-                             bg-gradient-to-r from-yellow-400 via-yellow-200 to-yellow-500 
-                             bg-clip-text text-transparent animate-shine">
-                Role
-              </h3>
-              <p className="text-lg mt-2">Production Manager</p>
-            </div>
+     <div
+  className="profile-container"
+  style={{
+    backgroundImage: `linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url(${MountainBg})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+  }}
+>
 
-            <div>
-              <h3 className="text-xl font-bold 
-                             bg-gradient-to-r from-yellow-400 via-yellow-200 to-yellow-500 
-                             bg-clip-text text-transparent animate-shine">
-                Organization
-              </h3>
-              <p className="text-lg mt-2">Alaknanda Herbal & Essential Oil Distillers</p>
-            </div>
 
-            <div>
-              <h3 className="text-xl font-bold 
-                             bg-gradient-to-r from-yellow-400 via-yellow-200 to-yellow-500 
-                             bg-clip-text text-transparent animate-shine">
-                Last Login
-              </h3>
-              <p className="text-lg mt-2">29 June 2026</p>
-            </div>
+        <div className="cont">
+
+<label
+  className="profile"
+  style={{
+    backgroundImage: `url(${profileImage})`
+  }}
+>
+
+  <input
+    type="file"
+    accept="image/*"
+    hidden
+    onChange={async (e)=>{
+
+      const file = e.target.files[0];
+
+      if(file){
+
+        const reader = new FileReader();
+reader.onloadend = async () => {
+
+setProfileImage(reader.result);
+
+
+const token = localStorage.getItem("token");
+
+await fetch(
+  "http://localhost:5000/api/users/profile-image",
+  {
+    method: "PUT",
+
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+
+    body: JSON.stringify({
+      profileImage: reader.result,
+    }),
+  }
+);
+
+};
+        reader.readAsDataURL(file);
+
+      }
+
+    }}
+  />
+
+</label>
+
+
+
+          <div className="info">
+
+
+            <h3>
+              {profile?.name}
+            </h3>
+
+
+            <p>
+
+              Email:
+              <br/>
+              {profile?.email }
+
+
+              <br/><br/>
+
+
+              Role:
+              <br/>
+              {profile?.role || "Production Manager"}
+
+
+              <br/><br/>
+
+
+              Organization:
+              <br/>
+              {profile?.organization || "Alaknanda Herbal & Essential"}
+
+
+            </p>
+
+
           </div>
+<button
+  onClick={() => {
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+  }}
+  className="logout-btn"
+>
+  Logout
+</button>
 
-          {/* ✅ Logout Button */}
-          <div className="mt-8">
-            <button
-              onClick={() => {
-                localStorage.removeItem("token"); // clear auth token
-                window.location.href = "/login";   // redirect to login page
-              }}
-              className="px-6 py-2 bg-red-600 hover:bg-red-500 text-white font-semibold rounded cursor-pointer transition"
-            >
-              Logout
-            </button>
-          </div>
         </div>
+
+
       </div>
+
+
     </div>
+
   );
+
 }

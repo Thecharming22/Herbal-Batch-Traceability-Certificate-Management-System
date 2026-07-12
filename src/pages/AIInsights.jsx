@@ -2,13 +2,14 @@
 
 import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
-
+import "./AnimatedGraph.css";
 export default function AIInsights() {
 const [insights, setInsights] = useState({
-  averageYield: 0,
-  predictedYield: 0,
-  lowYieldMessage: "",
-  alerts: [],
+  averageYield:0,
+  predictedYield:0,
+  lowYieldMessage:"",
+  alerts:[],
+  chartData:[]
 });
   useEffect(() => {
     fetchInsights();
@@ -16,10 +17,29 @@ const [insights, setInsights] = useState({
 
   const fetchInsights = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/batches");
-      const data = await res.json();
+   const token =
+  localStorage.getItem("token") ||
+  sessionStorage.getItem("token");
 
-      if (data.length === 0) {
+const res = await fetch(
+  "http://localhost:5000/api/batches",
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+);
+      const data = await res.json();
+if (!res.ok) {
+  console.log(data);
+  return;
+}
+    if (!Array.isArray(data)) {
+  console.log(data);
+  return;
+}
+
+if (data.length === 0)  {
         setInsights({
           averageYield: 0,
           highestYield: "-",
@@ -99,12 +119,16 @@ else {
     `🌿 Expected yield for the next batch is approximately ${predictedYield} ml.`
   );
 
-  setInsights({
-    averageYield,
-    predictedYield,
-    lowYieldMessage,
-    alerts,
-  });
+ setInsights({
+  averageYield,
+  predictedYield,
+  lowYieldMessage,
+  alerts,
+  chartData: data.map((batch) => ({
+    batchId: batch.batchId,
+    yield: Number(batch.yield),
+  })),
+});
 
   return;
 }
@@ -123,21 +147,28 @@ setInsights({
       : "-",
   lowYieldMessage: "-",
   alerts,
+  chartData: data.map(batch => ({
+   batchId: batch.batchId,
+   yield: Number(batch.yield)
+}))
 });
 
     } catch (err) {
       console.log(err);
     }
   };
-
+const maxYield = Math.max(
+  ...insights.chartData.map((b) => b.yield),
+  1
+);
   return (
     <div className="flex min-h-screen">
 
       <Sidebar />
 
-      <div className="flex-1 p-6 bg-gray-100/70 backdrop-blur-md">
+      <div className="flex-1 flex flex-col p-6 bg-black/90 backdrop-blur-sm min-h-screen">
 
-        <div className="bg-green-900 text-white shadow-lg rounded-lg p-6">
+        <div className="bg-green-950 text-white shadow-lg rounded-lg p-6">
 
           <h2 className="text-3xl font-extrabold bg-gradient-to-r from-yellow-400 via-yellow-200 to-yellow-500 bg-clip-text text-transparent mb-6">
             🌱 AI Insights
@@ -192,6 +223,52 @@ setInsights({
             </ul>
           </div>
 
+<div className="border-t border-gray-400 pt-6 mt-6">
+
+  <h3 className="text-xl font-bold text-yellow-300">
+    Batch Yield Analysis
+  </h3>
+
+  <div className="graphFrame mt-6">
+
+    {insights.chartData.map((batch, index) => {
+
+      const height = (batch.yield / maxYield) * 90;
+
+      return (
+
+        <div
+          key={index}
+          className="graphBarWrapper"
+        >
+
+          <div
+            className="graphBar"
+            style={{
+              height: `${height}%`,
+              animationDelay: `${index * 0.15}s`
+            }}
+          >
+
+            <span className="graphValue">
+              {batch.yield} ml
+            </span>
+
+          </div>
+
+          <div className="graphLabel">
+            {batch.batchId}
+          </div>
+
+        </div>
+
+      );
+
+    })}
+
+  </div>
+
+</div>
         </div>
 
       </div>

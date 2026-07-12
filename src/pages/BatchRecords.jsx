@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
-
+import toast from "react-hot-toast";
+import dashImg from "../assets/dash.jpg";
+import "./BatchRecords.css";
 export default function BatchRecords() {
   const [batches, setBatches] = useState([]);
 const [editingBatch, setEditingBatch] = useState(null);
@@ -21,7 +23,12 @@ const [editForm, setEditForm] = useState({
 
   const fetchBatches = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/batches");
+      const token=localStorage.getItem("token");
+     const res = await fetch("http://localhost:5000/api/batches", {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
       const data = await res.json();
       setBatches(data);
     } catch (err) {
@@ -36,19 +43,27 @@ const handleDelete = async (id) => {
   if (!confirmDelete) return;
 
   try {
-    const res = await fetch(`http://localhost:5000/api/batches/${id}`, {
-      method: "DELETE",
-    });
+    const token = localStorage.getItem("token");
+
+const res = await fetch(
+  `http://localhost:5000/api/batches/${id}`,
+  {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+);
 
     if (res.ok) {
-      alert("Batch deleted successfully!");
-      fetchBatches(); // Refresh table
+      toast.success("🗑️ Batch deleted successfully!");
+      fetchBatches();
     } else {
-      alert("Failed to delete batch.");
+      toast.error("Failed to delete batch.");
     }
   } catch (err) {
     console.error(err);
-    alert("Server Error");
+    toast.error("Server Error");
   }
 };
 const handleEditChange = (e) => {
@@ -59,42 +74,50 @@ const handleEditChange = (e) => {
 };
 const handleUpdate = async () => {
   try {
+     const token = localStorage.getItem("token");
     const res = await fetch(
       `http://localhost:5000/api/batches/${editingBatch._id}`,
       {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
+headers: {
+  "Content-Type": "application/json",
+  Authorization: `Bearer ${token}`,
+},
         body: JSON.stringify(editForm),
       }
     );
 
     if (res.ok) {
-      alert("Batch updated successfully!");
+      toast.success("✏️ Batch updated successfully!");
       setEditingBatch(null);
       fetchBatches();
     } else {
-      alert("Update failed.");
+      toast.error("Update failed.");
     }
   } catch (err) {
     console.error(err);
+    toast.error("Server Error");
   }
 };
 const handleDispatch = async () => {
   if (!buyerName.trim()) {
-    alert("Please enter buyer name.");
+    toast.error("Please enter buyer name.");
     return;
   }
 
   try {
+   const token =
+  localStorage.getItem("token") ||
+  sessionStorage.getItem("token");
     const res = await fetch(
       `http://localhost:5000/api/batches/${dispatchingBatch._id}/dispatch`,
       {
         method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
+       
+headers: {
+  "Content-Type": "application/json",
+  Authorization: `Bearer ${token}`,
+},
         body: JSON.stringify({
           buyerName,
         }),
@@ -102,16 +125,18 @@ const handleDispatch = async () => {
     );
 
     if (res.ok) {
-      alert("Batch dispatched successfully!");
+      toast.success("🚚 Batch dispatched successfully!");
+
       setDispatchingBatch(null);
       setBuyerName("");
+
       fetchBatches();
     } else {
-      alert("Dispatch failed.");
+      toast.error("Dispatch failed.");
     }
   } catch (err) {
     console.error(err);
-    alert("Server Error");
+    toast.error("Server Error");
   }
 };
   return (
@@ -120,8 +145,13 @@ const handleDispatch = async () => {
       <Sidebar />
 
       {/* Main Content */}
-      <div className="flex-1 p-6 bg-gray-100/70 backdrop-blur-md">
-        <div className="bg-green-900/100 backdrop-blur-sm text-white shadow-lg p-6 rounded-lg">
+      <div
+  className="flex-1 p-6 bg-cover bg-center min-h-screen"
+  style={{
+    backgroundImage: `url(${dashImg})`
+  }}
+>
+       <div className="bg-green-900/70 backdrop-blur-sm text-white shadow-lg p-6 rounded-lg">
 
           <h2
             className="text-2xl font-extrabold
@@ -186,7 +216,7 @@ const handleDispatch = async () => {
                     {batch.buyerName ? batch.buyerName : "-"}
                   </span>
 
-                  <span className="flex flex-wrap gap-2">
+                 <span className="flex items-center justify-center gap-1">
                    <button
   onClick={() => {
     setEditingBatch(batch);
@@ -199,21 +229,21 @@ const handleDispatch = async () => {
       certificateFileName: batch.certificateFileName,
     });
   }}
-  className="px-2 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded text-sm"
+  className="edit-btn"
 >
   Edit
 </button>
 <button
   onClick={() => handleDelete(batch._id)}
-  className="px-2 py-1 bg-red-600 hover:bg-red-500 text-white rounded text-sm"
+ className="delete-btn"
 >
   Delete
 </button>
 
                     {batch.status === "Pending" && (
-                      <button
+           <button
   onClick={() => setDispatchingBatch(batch)}
-  className="px-2 py-1 bg-green-600 hover:bg-green-500 text-white rounded text-sm"
+  className="dispatch-btn"
 >
   Dispatch
 </button>

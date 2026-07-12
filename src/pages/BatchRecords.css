@@ -1,0 +1,215 @@
+.dispatch-btn {
+  font-size: 11px;
+  background-color: #008542;
+  color: #fff;
+  text-shadow: 0 2px 0 rgb(0 0 0 / 25%);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+  border: 0;
+  z-index: 1;
+
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  padding: 4px 8px;   /* 👈 chhota */
+  min-width: 75px;    /* 👈 Edit/Delete ke similar */
+  height: 30px;       /* 👈 same height */
+
+  border-radius: 4px;
+  font-weight: 700;
+
+  transition: all 0.7s cubic-bezier(0, 0.8, 0.26, 0.99);
+}
+
+.dispatch-btn::before {
+
+  position:absolute;
+  pointer-events:none;
+
+  top:0;
+  left:0;
+
+  width:100%;
+  height:100%;
+
+  content:"";
+
+  z-index:-1;
+
+  background-color:#008542;
+
+  box-shadow:
+  0 -4px rgb(21 108 0 / 50%) inset,
+  0 4px rgb(100 253 31 / 99%) inset,
+  -4px 0 rgb(100 253 31 / 50%) inset,
+  4px 0 rgb(21 108 0 / 50%) inset;
+
+}
+
+
+.dispatch-btn::after {
+
+  position:absolute;
+
+  pointer-events:none;
+
+  top:0;
+  left:0;
+
+  width:100%;
+  height:100%;
+
+  content:"";
+
+  box-shadow:0 4px 0 0 rgb(0 0 0 / 15%);
+
+}
+
+
+.dispatch-btn:hover::before {
+
+  box-shadow:
+  0 -4px rgb(0 0 0 / 50%) inset,
+  0 4px rgb(255 255 255 / 20%) inset,
+  -4px 0 rgb(255 255 255 / 20%) inset,
+  4px 0 rgb(0 0 0 / 50%) inset;
+
+}
+
+
+.dispatch-btn:active {
+
+  transform:translateY(4px);
+
+}
+.edit-btn {
+  font-size: 11px;
+  background-color: #2563eb;
+  color: #fff;
+  text-shadow: 0 2px 0 rgb(0 0 0 / 25%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: 0;
+  z-index: 1;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 4px 8px;
+  min-width: 75px;
+  height: 30px;
+  border-radius: 4px;
+  font-weight: 700;
+  transition: all 0.7s cubic-bezier(0,0.8,0.26,0.99);
+}
+
+.edit-btn::before {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  content: "";
+  z-index: -1;
+  border-radius: 4px;
+  background-color: #2563eb;
+  box-shadow:
+    0 -4px rgb(30 64 175 / 50%) inset,
+    0 4px rgb(96 165 250 / 90%) inset,
+    -4px 0 rgb(96 165 250 / 50%) inset,
+    4px 0 rgb(30 64 175 / 50%) inset;
+}
+
+.edit-btn::after {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  content: "";
+  border-radius: 4px;
+  box-shadow: 0 4px 0 rgb(0 0 0 / 15%);
+}
+
+.edit-btn:hover::before {
+  box-shadow:
+    0 -4px rgb(0 0 0 / 50%) inset,
+    0 4px rgb(255 255 255 / 20%) inset,
+    -4px 0 rgb(255 255 255 / 20%) inset,
+    4px 0 rgb(0 0 0 / 50%) inset;
+}
+
+.edit-btn:active {
+  transform: translateY(4px);
+}
+.delete-btn {
+  font-size: 11px;
+  background-color: #dc2626;
+  color: #fff;
+  text-shadow: 0 2px 0 rgb(0 0 0 / 25%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: 0;
+  z-index: 1;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 4px 8px;
+  min-width: 75px;
+  height: 30px;
+  border-radius: 4px;
+  font-weight: 700;
+  transition: all 0.7s cubic-bezier(0,0.8,0.26,0.99);
+}
+
+.delete-btn::before {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  content: "";
+  z-index: -1;
+  border-radius: 4px;
+  background-color: #dc2626;
+  box-shadow:
+    0 -4px rgb(127 29 29 / 50%) inset,
+    0 4px rgb(248 113 113 / 90%) inset,
+    -4px 0 rgb(248 113 113 / 50%) inset,
+    4px 0 rgb(127 29 29 / 50%) inset;
+}
+
+.delete-btn::after {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  content: "";
+  border-radius: 4px;
+  box-shadow: 0 4px 0 rgb(0 0 0 / 15%);
+}
+
+.delete-btn:hover::before {
+  box-shadow:
+    0 -4px rgb(0 0 0 / 50%) inset,
+    0 4px rgb(255 255 255 / 20%) inset,
+    -4px 0 rgb(255 255 255 / 20%) inset,
+    4px 0 rgb(0 0 0 / 50%) inset;
+}
+
+.delete-btn:active {
+  transform: translateY(4px);
+}
