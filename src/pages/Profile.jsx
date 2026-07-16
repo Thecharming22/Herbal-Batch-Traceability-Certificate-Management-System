@@ -13,7 +13,9 @@ const [profileImage, setProfileImage] = useState("");
 
   const fetchProfile = async () => {
 
-    const token = localStorage.getItem("token");
+const token =
+  localStorage.getItem("token") ||
+  sessionStorage.getItem("token");
 
     const res = await fetch(
       "http://localhost:5000/api/auth/profile",
@@ -87,7 +89,9 @@ reader.onloadend = async () => {
 setProfileImage(reader.result);
 
 
-const token = localStorage.getItem("token");
+const token =
+  localStorage.getItem("token") ||
+  sessionStorage.getItem("token");
 
 await fetch(
   "http://localhost:5000/api/users/profile-image",
@@ -154,8 +158,9 @@ await fetch(
           </div>
 <button
   onClick={() => {
-    localStorage.removeItem("token");
-    window.location.href = "/login";
+localStorage.removeItem("token");
+sessionStorage.removeItem("token");
+window.location.href="/login";
   }}
   className="logout-btn"
 >

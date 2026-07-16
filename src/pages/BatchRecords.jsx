@@ -23,7 +23,8 @@ const [editForm, setEditForm] = useState({
 
   const fetchBatches = async () => {
     try {
-      const token=localStorage.getItem("token");
+       const token =localStorage.getItem("token") || sessionStorage.getItem("token")
+  
      const res = await fetch("http://localhost:5000/api/batches", {
   headers: {
     Authorization: `Bearer ${token}`,
@@ -35,36 +36,60 @@ const [editForm, setEditForm] = useState({
       console.error("Error fetching batches:", err);
     }
   };
-const handleDelete = async (id) => {
-  const confirmDelete = window.confirm(
-    "Are you sure you want to delete this batch?"
-  );
+const handleDelete = (id) => {
+  toast((t) => (
+    <div className="flex flex-col gap-4">
+      <p className="font-semibold text-black">
+        🗑️ Are you sure you want to delete this batch?
+      </p>
 
-  if (!confirmDelete) return;
+      <div className="flex justify-end gap-2">
+        <button
+          onClick={() => toast.dismiss(t.id)}
+          className="px-4 py-2 rounded bg-gray-400 text-white hover:bg-gray-500"
+        >
+          Cancel
+        </button>
 
-  try {
-    const token = localStorage.getItem("token");
+        <button
+          onClick={async () => {
+            toast.dismiss(t.id);
 
-const res = await fetch(
-  `http://localhost:5000/api/batches/${id}`,
-  {
-    method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }
-);
+            try {
+              const token =
+                localStorage.getItem("token") ||
+                sessionStorage.getItem("token");
 
-    if (res.ok) {
-      toast.success("🗑️ Batch deleted successfully!");
-      fetchBatches();
-    } else {
-      toast.error("Failed to delete batch.");
-    }
-  } catch (err) {
-    console.error(err);
-    toast.error("Server Error");
-  }
+              const res = await fetch(
+                `http://localhost:5000/api/batches/${id}`,
+                {
+                  method: "DELETE",
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+                }
+              );
+
+              if (res.ok) {
+                toast.success("🗑️ Batch deleted successfully!");
+                fetchBatches();
+              } else {
+                toast.error("Failed to delete batch.");
+              }
+            } catch (err) {
+              console.error(err);
+              toast.error("Server Error");
+            }
+          }}
+          className="px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  ), {
+    duration: Infinity,
+  });
 };
 const handleEditChange = (e) => {
   setEditForm({
@@ -74,7 +99,7 @@ const handleEditChange = (e) => {
 };
 const handleUpdate = async () => {
   try {
-     const token = localStorage.getItem("token");
+      const token =localStorage.getItem("token") || sessionStorage.getItem("token")
     const res = await fetch(
       `http://localhost:5000/api/batches/${editingBatch._id}`,
       {

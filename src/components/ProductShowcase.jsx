@@ -12,17 +12,63 @@ const token =
   localStorage.getItem("token") ||
   sessionStorage.getItem("token");
 useEffect(() => {
- fetch("http://localhost:5000/api/batches/certificate/rosemary", {
-  headers:{
-    Authorization:`Bearer ${token}`
-  }
-})
 
-fetch("http://localhost:5000/api/batches/certificate/chamomile", {
-  headers:{
-    Authorization:`Bearer ${token}`
-  }
-})
+  const fetchCertificates = async () => {
+
+    try {
+
+      const rosemaryRes = await fetch(
+        "http://localhost:5000/api/batches/certificate/rosemary",
+        {
+          headers:{
+            Authorization:`Bearer ${token}`
+          }
+        }
+      );
+
+
+      const rosemaryData = await rosemaryRes.json();
+
+      console.log("Rosemary:", rosemaryData);
+
+      setRosemaryBatch(rosemaryData);
+
+
+
+      const chamomileRes = await fetch(
+        "http://localhost:5000/api/batches/certificate/chamomile",
+        {
+          headers:{
+            Authorization:`Bearer ${token}`
+          }
+        }
+      );
+
+
+      const chamomileData = await chamomileRes.json();
+
+      console.log("Chamomile:", chamomileData);
+
+      setChamomileBatch(chamomileData);
+
+
+
+    }
+    catch(error){
+
+      console.log(
+        "Certificate fetch error:",
+        error
+      );
+
+    }
+
+  };
+
+
+  fetchCertificates();
+
+
 }, []);
   return (
   <>

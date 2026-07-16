@@ -19,6 +19,7 @@ import Profile from "./pages/Profile";   // ✅ new import
 import ProtectedRoute from "./components/ProtectedRoute";
 import GoogleSuccess from "./pages/GoogleSuccess";
 import ResetPassword from "./pages/ResetPassword";
+import Contact from "./pages/Contact";
 // ✅ Inner component that can use useLocation
 function AppContent({ theme, setTheme }) {
   const location = useLocation();
@@ -44,7 +45,7 @@ function AppContent({ theme, setTheme }) {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/google-success" element={<GoogleSuccess />}/>
           <Route path="/reset-password/:token" element={<ResetPassword />}/>
-
+        <Route path="/contact" element={<Contact />} />
         <Route
   path="/dashboard"
   element={

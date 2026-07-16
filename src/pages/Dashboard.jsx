@@ -6,6 +6,7 @@ import "./AnimatedGraph.css";
 import { useState, useEffect, useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ChatBot from "../components/ChatBot";
 // Sidebar Component
 // Sidebar Component
 function Sidebar() {
@@ -116,7 +117,9 @@ useEffect(() => {
 }, []);
 const markNotificationsAsRead = async () => {
   try {
-    const token = localStorage.getItem("token");
+    const token =
+  localStorage.getItem("token") ||
+  sessionStorage.getItem("token");
    await fetch(
   "http://localhost:5000/api/notifications/read",
   {
@@ -538,7 +541,8 @@ const maxYield = Math.max(
 
       <button
         onClick={() => {
-          localStorage.removeItem("token");
+      localStorage.removeItem("token");
+sessionStorage.removeItem("token");
           window.location.href = "/login";
         }}
         className="w-full flex items-center gap-3 px-3 py-3 rounded-lg 
@@ -854,6 +858,9 @@ style={{
   draggable
   theme="dark"
 />
+<ToastContainer />
+
+<ChatBot />
     </div>
   );
 }

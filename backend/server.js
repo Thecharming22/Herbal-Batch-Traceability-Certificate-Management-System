@@ -12,6 +12,7 @@ import rateLimit from "express-rate-limit";
 import passport from "passport";
 import session from "express-session";
 import "./config/passport.js";
+import chatRoutes from "./routes/chat.js";
 const app = express();
 const authLimiter = rateLimit({
   windowMs:  15 * 60 * 1000, // 15 minutes
@@ -47,6 +48,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/batches", batchRoutes);
 app.use("/api/notifications", notificationRoutes);
+app.use("/api/chat", chatRoutes);
 console.log(process.env.GOOGLE_CLIENT_ID);
 console.log(process.env.GOOGLE_CLIENT_SECRET);
 // Error handler
