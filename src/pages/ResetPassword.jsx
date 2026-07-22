@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { FaLock } from "react-icons/fa";
+import {
+  FaLock,
+  FaEye,
+  FaEyeSlash,
+} from "react-icons/fa";
 import toast from "react-hot-toast";
 import "./Login.css";
 export default function ResetPassword() {
@@ -9,6 +13,8 @@ export default function ResetPassword() {
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleReset = async (e) => {
@@ -88,12 +94,11 @@ export default function ResetPassword() {
 
             <div>
               <label className="text-white">New Password</label>
-
-             <div className="inputBox">
+<div className="inputBox">
   <FaLock style={{ color: "black" }} />
 
   <input
-    type="password"
+    type={showPassword ? "text" : "password"}
     placeholder="Enter new password"
     value={password}
     onChange={(e) => setPassword(e.target.value)}
@@ -103,6 +108,21 @@ export default function ResetPassword() {
       background: "transparent",
     }}
   />
+
+  <button
+    type="button"
+    onClick={() => setShowPassword(!showPassword)}
+    style={{
+      background: "transparent",
+      border: "none",
+      cursor: "pointer",
+      color: "black",
+      display: "flex",
+      alignItems: "center",
+    }}
+  >
+    {showPassword ? <FaEyeSlash /> : <FaEye />}
+  </button>
 </div>
             </div>
 
@@ -114,7 +134,7 @@ export default function ResetPassword() {
   <FaLock style={{ color: "black" }} />
 
   <input
-    type="password"
+    type={showConfirmPassword ? "text" : "password"}
     placeholder="Confirm new password"
     value={confirmPassword}
     onChange={(e) => setConfirmPassword(e.target.value)}
@@ -124,6 +144,23 @@ export default function ResetPassword() {
       background: "transparent",
     }}
   />
+
+  <button
+    type="button"
+    onClick={() =>
+      setShowConfirmPassword(!showConfirmPassword)
+    }
+    style={{
+      background: "transparent",
+      border: "none",
+      cursor: "pointer",
+      color: "black",
+      display: "flex",
+      alignItems: "center",
+    }}
+  >
+    {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+  </button>
 </div>
             </div>
 

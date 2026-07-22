@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { FaEnvelope, FaLock, FaUser } from "react-icons/fa";
+import {
+  FaEnvelope,
+  FaLock,
+  FaUser,
+  FaEye,
+  FaEyeSlash,
+} from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Loader from "../components/ui/Loader.jsx";
@@ -10,6 +16,8 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -179,32 +187,66 @@ if (res.ok) {
                 Password
               </label>
 
-              <div className="inputBox">
-                <FaLock />
-                <input
-                  type="password"
-                  placeholder="Create password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </div>
+            <div className="inputBox">
+  <FaLock />
+
+  <input
+    type={showPassword ? "text" : "password"}
+    placeholder="Create password"
+    value={password}
+    onChange={(e) => setPassword(e.target.value)}
+    required
+  />
+
+  <button
+    type="button"
+    onClick={() => setShowPassword(!showPassword)}
+    style={{
+      background: "transparent",
+      border: "none",
+      cursor: "pointer",
+      color: "black",
+      display: "flex",
+      alignItems: "center",
+    }}
+  >
+    {showPassword ? <FaEyeSlash /> : <FaEye />}
+  </button>
+</div>
 
               {/* Confirm Password */}
               <label className="fieldLabel">
                 Confirm Password
               </label>
 
-              <div className="inputBox">
-                <FaLock />
-                <input
-                  type="password"
-                  placeholder="Confirm password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  required
-                />
-              </div>
+            <div className="inputBox">
+  <FaLock />
+
+  <input
+    type={showConfirmPassword ? "text" : "password"}
+    placeholder="Confirm password"
+    value={confirmPassword}
+    onChange={(e) => setConfirmPassword(e.target.value)}
+    required
+  />
+
+  <button
+    type="button"
+    onClick={() =>
+      setShowConfirmPassword(!showConfirmPassword)
+    }
+    style={{
+      background: "transparent",
+      border: "none",
+      cursor: "pointer",
+      color: "black",
+      display: "flex",
+      alignItems: "center",
+    }}
+  >
+    {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+  </button>
+</div>
 
               <button
                 type="submit"

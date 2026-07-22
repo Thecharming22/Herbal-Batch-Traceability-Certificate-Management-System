@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaEnvelope, FaLock } from "react-icons/fa";
+import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Loader from "../components/ui/Loader.jsx";
@@ -8,6 +8,7 @@ import "./Login.css";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
@@ -122,22 +123,38 @@ const [rememberMe, setRememberMe] = useState(false);
                 Password
               </label>
 
-              <div className="inputBox">
+         <div className="inputBox">
 
-             <FaLock style={{ color: "black" }} />
-                <input
-  type="password"
-  placeholder="Enter your password"
-  value={password}
-  onChange={(e) => setPassword(e.target.value)}
-  required
-  style={{
-    color: "white",
-    background: "transparent",
-  }}
-/>
+  <FaLock style={{ color: "black" }} />
 
-              </div>
+  <input
+    type={showPassword ? "text" : "password"}
+    placeholder="Enter your password"
+    value={password}
+    onChange={(e) => setPassword(e.target.value)}
+    required
+    style={{
+      color: "white",
+      background: "transparent",
+    }}
+  />
+
+  <button
+    type="button"
+    onClick={() => setShowPassword(!showPassword)}
+    style={{
+      background: "transparent",
+      border: "none",
+      cursor: "pointer",
+      color: "black",
+      display: "flex",
+      alignItems: "center",
+    }}
+  >
+    {showPassword ? <FaEyeSlash /> : <FaEye />}
+  </button>
+
+</div>
 
               {/* Remember + Forgot */}
 
