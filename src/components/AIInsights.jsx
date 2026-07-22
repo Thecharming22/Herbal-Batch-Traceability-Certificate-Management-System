@@ -17,27 +17,28 @@ export default function AIInsights() {
       <div className="absolute inset-0 bg-black/40"></div>
 
       {/* Content */}
-      <div className="relative max-w-7xl mx-auto flex flex-row items-center gap-4 sm:gap-16 text-white">
+      <div className="relative max-w-7xl mx-auto flex flex-row items-center gap-2 sm:gap-16 text-white">
 
         {/* IMAGE */}
-        <div className="w-[55%]">
+       <div className="w-[42%] sm:w-[55%] flex-shrink-0">
           <img
             src={smartFarming}
             alt="AI Dashboard"
-            className="w-full rounded-xl shadow-2xl transform transition-all duration-500
-           hover:scale-105 hover:-translate-y-2
-           active:scale-105 active:-translate-y-2
-           animate-[float_3s_ease-in-out_infinite]"
+           className="w-full max-h-[140px] sm:max-h-none object-cover rounded-xl shadow-2xl
+transform transition-all duration-500
+hover:scale-105 hover:-translate-y-2
+active:scale-105 active:-translate-y-2
+animate-[float_3s_ease-in-out_infinite]"
           />
         </div>
 
         {/* TEXT */}
-        <div className="w-[45%] text-left">
-          <h2 className="text-lg sm:text-5xl font-extrabold mb-3 sm:mb-5 text-green-800 animate-bounce">
+      <div className="w-[58%] sm:w-[45%] text-left">
+          <h2 className="text-base sm:text-5xl font-extrabold mb-2 sm:mb-5 text-green-800 animate-bounce leading-tight">
             AI Yield Prediction & Insights
           </h2>
 
-          <p className="text-[11px] sm:text-xl leading-relaxed">
+      <p className="text-[10px] sm:text-xl leading-snug sm:leading-relaxed">
             Our AI forecasts herbal yields with precision, helping plan
             harvests and ensure consistent quality. By analyzing field
             data and lab results, the system provides predictive insights

@@ -36,11 +36,11 @@ useEffect(() => {
   return (
   <nav className="relative bg-white dark:bg-black text-gray-900 dark:text-white px-4 sm:px-8 py-3 flex items-center shadow-md transition-colors duration-300">
 {showGuide && (
-<div className="fixed inset-0 bg-black/70 flex justify-center items-center z-[99999]">
+<div className="fixed inset-0 bg-black/70 flex justify-center items-center z-[99999] p-4">
 
-<div className="bg-[#08160f] w-[600px] rounded-2xl border border-yellow-500 p-8">
+<div className="bg-[#08160f] w-[600px] max-w-[90vw] max-h-[85vh] overflow-y-auto rounded-2xl border border-yellow-500 p-5 sm:p-8">
 
-<h2 className="text-3xl text-yellow-400 font-bold mb-5">
+<h2 className="text-2xl sm:text-3xl text-yellow-400 font-bold mb-5">
 📖 User Guide
 </h2>
 
@@ -78,11 +78,11 @@ Close
 )}
 {showHelp && (
 
-<div className="fixed inset-0 bg-black/70 flex justify-center items-center z-[99999]">
+<div className="fixed inset-0 bg-black/70 flex justify-center items-center z-[99999] p-4">
 
-<div className="bg-[#08160f] w-[600px] rounded-2xl border border-yellow-500 p-8">
+<div className="bg-[#08160f] w-[600px] max-w-[90vw] max-h-[85vh] overflow-y-auto rounded-2xl border border-yellow-500 p-5 sm:p-8">
 
-<h2 className="text-3xl text-yellow-400 font-bold mb-5">
+<h2 className="text-2xl sm:text-3xl text-yellow-400 font-bold mb-5">
 
 ❓ Help Center
 
@@ -119,11 +119,11 @@ Close
 )}
 {showContact && (
 
-<div className="fixed inset-0 bg-black/70 flex justify-center items-center z-[99999]">
+<div className="fixed inset-0 bg-black/70 flex justify-center items-center z-[99999] p-4">
 
-<div className="bg-[#08160f] w-[600px] rounded-2xl border border-yellow-500 p-8">
+<div className="bg-[#08160f] w-[600px] max-w-[90vw] max-h-[85vh] overflow-y-auto rounded-2xl border border-yellow-500 p-5 sm:p-8">
 
-<h2 className="text-3xl text-yellow-400 font-bold mb-5">
+<h2 className="text-2xl sm:text-3xl text-yellow-400 font-bold mb-5">
 
 📞 Contact Us
 

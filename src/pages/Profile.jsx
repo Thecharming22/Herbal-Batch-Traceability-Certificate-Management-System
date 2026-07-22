@@ -1,38 +1,69 @@
 // src/pages/Profile.jsx
-
+import Loader from "../components/ui/Loader";
 import Sidebar from "../components/Sidebar";
 import { useEffect, useState } from "react";
 import "./Profile.css";
 import MountainBg from "../assets/mountain.jpg";
 export default function Profile() {
 const [profileImage, setProfileImage] = useState("");
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState("");
+const [sidebarOpen, setSidebarOpen] = useState(false);
   const [profile, setProfile] = useState(null);
-
-
-  useEffect(() => {
+useEffect(() => {
 
   const fetchProfile = async () => {
 
-const token =
-  localStorage.getItem("token") ||
-  sessionStorage.getItem("token");
+    try {
 
-    const res = await fetch(
-      "http://localhost:5000/api/auth/profile",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      setLoading(true);
+      setError("");
+
+      const token =
+        localStorage.getItem("token") ||
+        sessionStorage.getItem("token");
+
+      if (!token) {
+        throw new Error("You are not authenticated.");
       }
-    );
 
-    const data = await res.json();
+      const res = await fetch(
+        "http://localhost:5000/api/auth/profile",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-    setProfile(data);
+      const data = await res.json();
 
-    if (data.profileImage) {
-      setProfileImage(data.profileImage);
+      if (!res.ok) {
+        throw new Error(
+          data.message || "Failed to load profile"
+        );
+      }
+
+      setProfile(data);
+
+      if (data.profileImage) {
+        setProfileImage(data.profileImage);
+      }
+
+    } catch (err) {
+
+      console.error("Error fetching profile:", err);
+
+      setError(
+        err.message || "Failed to load profile"
+      );
+
+    } finally {
+
+      setLoading(false);
+
     }
+
   };
 
   fetchProfile();
@@ -43,28 +74,74 @@ const token =
 
   return (
 
-    <div className="flex min-h-screen">
+ <div className="flex flex-col md:flex-row min-h-screen">
 
+  {/* Desktop Sidebar */}
+  <div className="hidden md:flex md:w-64">
+    <Sidebar />
+  </div>
 
-      {/* Sidebar same rahega */}
-      <Sidebar />
+  {/* Mobile Sidebar */}
+  {sidebarOpen && (
+    <>
+      <div
+        className="fixed inset-0 bg-black/60 z-40 md:hidden"
+        onClick={() => setSidebarOpen(false)}
+      />
 
+      <div className="fixed top-0 left-0 h-full z-50 md:hidden">
+        <Sidebar closeSidebar={() => setSidebarOpen(false)} />
+      </div>
+    </>
+  )}
 
+ <div className="flex-1 relative">
 
-      {/* Profile Area */}
+  {/* Hamburger */}
+  <div className="absolute top-4 left-4 md:hidden z-50">
+    <button
+      onClick={() => setSidebarOpen(true)}
+      className="text-white text-4xl"
+    >
+      ☰
+    </button>
+  </div>
 
-     <div
-  className="profile-container"
-  style={{
-    backgroundImage: `linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url(${MountainBg})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-  }}
->
+  <div
+    className="profile-container"
+    style={{
+      backgroundImage: `linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url(${MountainBg})`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+    }}
+  >
 
+       <div className="cont">
 
-        <div className="cont">
+  {loading && (
+    <div className="flex justify-center items-center h-full">
+      <Loader />
+    </div>
+  )}
+
+  {error && !loading && (
+    <div className="flex flex-col justify-center items-center h-full px-6 text-center">
+      <p className="text-red-600 font-semibold">
+        ❌ {error}
+      </p>
+
+      <button
+        onClick={() => window.location.reload()}
+        className="mt-4 bg-green-700 text-white px-5 py-2 rounded-lg"
+      >
+        Retry
+      </button>
+    </div>
+  )}
+
+  {!loading && !error && profile && (
+    <>
 
 <label
   className="profile"
@@ -166,15 +243,14 @@ window.location.href="/login";
 >
   Logout
 </button>
-
-        </div>
-
-
-      </div>
-
-
+</>
+  )}
+ </div>
     </div>
 
-  );
+  </div>
 
+</div>
+
+  );
 }

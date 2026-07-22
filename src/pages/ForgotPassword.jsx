@@ -28,17 +28,26 @@ if (res.ok) {
   };
 
   return (
-    <section className="relative h-screen w-full overflow-hidden">
+  <section className="relative min-h-screen w-full overflow-hidden px-4">
       {/* Background Video */}
       <video className="absolute top-0 left-0 w-full h-full object-cover" autoPlay muted loop playsInline>
         <source src="/flowers.mp4" type="video/mp4" />
       </video>
 
       <div className="absolute inset-0 flex items-center justify-center">
-<div className="bg-black/90 backdrop-blur-lg p-12 rounded-2xl shadow-2xl w-[32rem]">
-         <h2 className="text-3xl font-bold mb-8 text-center text-white">Forgot Password</h2>
+<div
+  className="
+    bg-black/90 backdrop-blur-lg
+    w-[90%] max-w-[32rem]
+    p-6 sm:p-12
+    rounded-2xl shadow-2xl
+  "
+>
+        <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center text-white">
+  Forgot Password
+</h2>
 
-          <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
+          <form className="flex flex-col gap-4 sm:gap-6" onSubmit={handleSubmit}>
             <div className="flex flex-col">
              <label className="text-base font-medium mb-2 text-white">Email</label>
            

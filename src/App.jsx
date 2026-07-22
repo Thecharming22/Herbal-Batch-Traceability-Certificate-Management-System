@@ -99,6 +99,7 @@ function AppContent({ theme, setTheme }) {
 }
 
 export default function App() {
+  
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
   useEffect(() => {

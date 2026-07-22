@@ -19,7 +19,7 @@ export default function AddBatch() {
       [e.target.name]: e.target.value,
     });
   };
-
+const [sidebarOpen, setSidebarOpen] = useState(false);
   const handleSubmit = async (e) => {
   e.preventDefault();
 
@@ -61,17 +61,45 @@ export default function AddBatch() {
   }
 };
   return (
-    <div className="flex min-h-screen">
-      {/* Sidebar */}
-      <Sidebar />
+  <div className="flex flex-col md:flex-row min-h-screen">
 
-      {/* Main Content */}
-     <div
-  className="flex-1 flex items-center justify-center p-6 bg-cover bg-center"
-  style={{
-    backgroundImage: `url(${purpleImg})`
-  }}
->
+  {/* Desktop Sidebar */}
+  <div className="hidden md:flex md:w-64">
+    <Sidebar closeSidebar={() => {}} />
+  </div>
+
+  {/* Mobile Sidebar */}
+  {sidebarOpen && (
+    <>
+      <div
+        className="fixed inset-0 bg-black/60 z-40 md:hidden"
+        onClick={() => setSidebarOpen(false)}
+      />
+
+      <div className="fixed top-0 left-0 h-full z-50 md:hidden">
+        <Sidebar closeSidebar={() => setSidebarOpen(false)} />
+      </div>
+    </>
+  )}
+
+  {/* Main Content */}
+  <div
+    className="flex-1 flex flex-col bg-cover bg-center"
+    style={{
+      backgroundImage: `url(${purpleImg})`,
+    }}
+  >
+    <div className="flex items-center p-4">
+
+  <button
+    onClick={() => setSidebarOpen(true)}
+    className="md:hidden text-white text-4xl"
+  >
+    ☰
+  </button>
+
+</div>
+<div className="flex-1 flex items-center justify-center p-4 md:p-6">
         <div className="book">
           {/* Cover text */}
           <div className="cover">
@@ -171,6 +199,7 @@ export default function AddBatch() {
           </form>
         </div>
       </div>
+    </div>
     </div>
   );
 }

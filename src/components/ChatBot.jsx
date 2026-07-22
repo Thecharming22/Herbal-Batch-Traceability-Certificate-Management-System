@@ -7,10 +7,10 @@ export default function ChatBot() {
   const [chat, setChat] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const [size, setSize] = useState({
-    width: 380,
-    height: 560
-  });
+const [size, setSize] = useState({
+  width: window.innerWidth < 768 ? window.innerWidth - 20 : 340,
+  height: window.innerWidth < 768 ? window.innerHeight - 20 : 500,
+});
 
 
   const sendMessage = async () => {
@@ -96,15 +96,15 @@ export default function ChatBot() {
 
     setSize({
 
-      width:Math.min(
-        Math.max(width,320),
-        650
-      ),
+     width: Math.min(
+  Math.max(width,320),
+  450
+),
 
-      height:Math.min(
-        Math.max(height,420),
-        850
-      )
+height: Math.min(
+  Math.max(height,420),
+  650
+)
 
     });
 
@@ -168,15 +168,23 @@ return (
 
 <div
 className="
-fixed bottom-6 right-6
+fixed
+bottom-3
+right-3
+md:bottom-6
+md:right-6
 z-[9999]
-flex flex-col items-end gap-3
+flex
+flex-col
+items-end
+gap-2
 "
 >
 
 
 <div
 className="
+block
 bg-black
 border border-yellow-400
 text-yellow-300
@@ -188,7 +196,7 @@ text-sm
 "
 >
 
-🌿 Hi, I am Groq Herbal Assistant
+🌿 Hi, I am  Herbal Assistant
 
 <br/>
 
@@ -201,29 +209,26 @@ Ask about herbs & traceability
 
 
 <button
-
-onClick={()=>setOpen(true)}
-
-className="
-w-24 h-24
-rounded-full
-bg-gradient-to-br
-from-green-950
-via-green-700
-to-black
-border-4
-border-yellow-400
-text-5xl
-shadow-[0_0_35px_rgba(234,179,8,0.8)]
-hover:scale-110
-transition
-animate-pulse
-"
-
+  onClick={() => setOpen(true)}
+  className="
+  w-16 h-16
+  md:w-24 md:h-24
+  rounded-full
+  bg-gradient-to-br
+  from-green-950
+  via-green-700
+  to-black
+  border-4
+  border-yellow-400
+  text-3xl
+  md:text-5xl
+  shadow-[0_0_35px_rgba(234,179,8,0.8)]
+  hover:scale-110
+  transition
+  animate-pulse
+  "
 >
-
-🌿
-
+  🌿
 </button>
 
 
@@ -245,14 +250,21 @@ open &&
 <div
 
 style={{
-width:`${size.width}px`,
-height:`${size.height}px`
+  width:
+    window.innerWidth < 768
+      ? "340px"
+      : `${size.width}px`,
+
+  height:
+    window.innerWidth < 768
+      ? "500px"
+      : `${size.height}px`,
 }}
 
 className="
 fixed
-bottom-6
-right-6
+bottom-3
+right-3
 z-[9999]
 rounded-3xl
 overflow-hidden
@@ -332,7 +344,7 @@ text-transparent
 
 >
 
-Groq Herbal AI
+ Herbal AI
 
 </h2>
 
@@ -501,14 +513,17 @@ item.sender==="user"
 
 
 
-{
-loading &&
+{loading && (
+  <div className="flex gap-2 mb-3 justify-start">
+    <div className="w-8 h-8 rounded-full bg-green-700 flex items-center justify-center">
+      🌿
+    </div>
 
-<p className="text-green-300 text-sm">
-🌱 Herbal AI is thinking...
-</p>
-
-}
+    <div className="bg-gray-900 border border-green-700 text-green-300 rounded-2xl rounded-bl-none px-4 py-3 text-sm">
+      🌱 Herbal AI is thinking...
+    </div>
+  </div>
+)}
 
 
 </div>
@@ -600,6 +615,8 @@ font-bold
 onMouseDown={startResize}
 
 className="
+hidden
+md:block
 absolute
 bottom-1
 right-1
@@ -609,7 +626,6 @@ cursor-se-resize
 text-yellow-400
 text-xl
 "
-
 >
 
 

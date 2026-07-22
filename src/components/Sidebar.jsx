@@ -1,7 +1,7 @@
 // src/components/Sidebar.jsx
 import { Link, useLocation } from "react-router-dom";
 
-export default function Sidebar() {
+export default function Sidebar({ closeSidebar })  {
   const location = useLocation();
 
   // All links
@@ -17,8 +17,16 @@ export default function Sidebar() {
   const links = allLinks.filter((link) => link.path !== location.pathname);
 
   return (
-    <div className="w-64 p-6 shadow flex flex-col bg-green-900/30 backdrop-blur-sm">
+  <div className="w-64 h-full p-6 shadow flex flex-col bg-[#041C0A]">
       {/* Sidebar Title */}
+      {closeSidebar && (
+  <button
+    onClick={closeSidebar}
+    className="md:hidden self-end text-white text-3xl mb-4"
+  >
+    ✕
+  </button>
+)}
       <h1
         className="font-extrabold text-3xl mb-6
                    bg-gradient-to-r from-yellow-400 via-yellow-200 to-yellow-500 

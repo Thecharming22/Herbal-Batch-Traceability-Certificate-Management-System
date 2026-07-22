@@ -51,7 +51,7 @@ const [rememberMe, setRememberMe] = useState(false);
   };
 
   return (
-    <section className="relative h-screen w-full overflow-hidden">
+   <section className="relative min-h-screen w-full overflow-hidden">
       {/* Background Video */}
       <video
         className="absolute inset-0 w-full h-full object-cover"
@@ -67,7 +67,7 @@ const [rememberMe, setRememberMe] = useState(false);
       <div className="absolute inset-0 bg-black/30"></div>
 
       {/* Main Container */}
-      <div className="absolute inset-0 flex items-center justify-center">
+    <div className="absolute inset-0 flex items-center justify-center px-4 py-6">
 
         <div className="loginContainer">
 

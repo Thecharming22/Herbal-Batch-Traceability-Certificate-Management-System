@@ -4,157 +4,67 @@ import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import "./AnimatedGraph.css";
 export default function AIInsights() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+const [error, setError] = useState("");
 const [insights, setInsights] = useState({
-  averageYield:0,
-  predictedYield:0,
-  lowYieldMessage:"",
-  alerts:[],
-  chartData:[]
+  averageYield: 0,
+  predictedYield: 0,
+  lowYieldMessage: "",
+  alerts: [],
+  aiSummary: "",
+  chartData: [],
 });
   useEffect(() => {
     fetchInsights();
   }, []);
 
   const fetchInsights = async () => {
+    setLoading(true);
+    setError("");
+
     try {
-   const token =
-  localStorage.getItem("token") ||
-  sessionStorage.getItem("token");
+      const token =
+        localStorage.getItem("token") ||
+        sessionStorage.getItem("token");
 
-const res = await fetch(
-  "http://localhost:5000/api/batches",
-  {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }
-);
+      const res = await fetch(
+        "http://localhost:5000/api/ai/insights",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
       const data = await res.json();
-if (!res.ok) {
-  console.log(data);
-  return;
-}
-    if (!Array.isArray(data)) {
-  console.log(data);
-  return;
-}
 
-if (data.length === 0)  {
-        setInsights({
-          averageYield: 0,
-          highestYield: "-",
-          lowestYield: "-",
-          alerts: ["No batch records available."],
-        });
-        return;
+      if (!res.ok) {
+        throw new Error(
+          data.message || "AI insight generation failed"
+        );
       }
 
-      // Average Yield
-      const totalYield = data.reduce(
-        (sum, batch) => sum + Number(batch.yield),
-        0
-      );
-
-      const averageYield = (
-        totalYield / data.length
-      ).toFixed(2);
-
-      // Highest & Lowest Yield
-      const sorted = [...data].sort(
-        (a, b) => Number(b.yield) - Number(a.yield)
-      );
-const alerts = [];
-
-const predictedYield =
-  data.length > 0
-    ? Math.round(Number(averageYield))
-    : 0;
-
-// AI needs enough history
-if (data.length === 0) {
-  alerts.push("📂 No historical batch data available.");
-}
-
-else if (data.length === 1) {
-  alerts.push(
-    "🤖 AI needs more historical batches for accurate yield prediction."
-  );
-}
-
-else {
-
-  // Low yield detection
-  const lowYieldBatches = data.filter(
-    (batch) =>
-      Number(batch.yield) <
-      Number(averageYield) * 0.8
-  );
-
-  let lowYieldMessage = "";
-
-  if (lowYieldBatches.length > 0) {
-
-    lowYieldMessage = `Low yield detected in batch(s): ${lowYieldBatches
-      .map((b) => b.batchId)
-      .join(", ")}`;
-
-    alerts.push(
-      `⚠ Low yield detected in batch(s): ${lowYieldBatches
-        .map((b) => b.batchId)
-        .join(", ")}`
-    );
-
-  } else {
-
-    lowYieldMessage =
-      "No abnormal yield detected.";
-
-    alerts.push(
-      "✅ No abnormal yield detected."
-    );
-
-  }
-
-  alerts.push(
-    `🌿 Expected yield for the next batch is approximately ${predictedYield} ml.`
-  );
-
- setInsights({
-  averageYield,
-  predictedYield,
-  lowYieldMessage,
-  alerts,
-  chartData: data.map((batch) => ({
-    batchId: batch.batchId,
-    yield: Number(batch.yield),
-  })),
-});
-
-  return;
-}
-
-// For 0 or 1 batches
-setInsights({
-  averageYield,
-  predictedYield,
-  highestYield:
-    sorted.length > 0
-      ? `${sorted[0].batchId} (${sorted[0].yield} ml)`
-      : "-",
-  lowestYield:
-    sorted.length > 0
-      ? `${sorted[sorted.length - 1].batchId} (${sorted[sorted.length - 1].yield} ml)`
-      : "-",
-  lowYieldMessage: "-",
-  alerts,
-  chartData: data.map(batch => ({
-   batchId: batch.batchId,
-   yield: Number(batch.yield)
-}))
+     setInsights({
+  averageYield: data.averageYield,
+  predictedYield: data.predictedYield,
+  lowYieldMessage: data.lowYieldMessage,
+  alerts: data.alerts || [],
+  aiSummary: data.insight,
+  chartData: data.chartData || [],
 });
 
     } catch (err) {
-      console.log(err);
+      console.error("AI Insights Error:", err);
+
+      setError(
+        "Unable to generate AI insights right now."
+      );
+
+    } finally {
+      setLoading(false);
     }
   };
 const maxYield = Math.max(
@@ -162,18 +72,73 @@ const maxYield = Math.max(
   1
 );
   return (
-    <div className="flex min-h-screen">
+    <div className="flex flex-col md:flex-row min-h-screen">
 
-      <Sidebar />
+  {/* Desktop Sidebar */}
+<div className="hidden md:flex md:w-64">
+  <Sidebar />
+</div>
 
-      <div className="flex-1 flex flex-col p-6 bg-black/90 backdrop-blur-sm min-h-screen">
+{/* Mobile Sidebar */}
+{sidebarOpen && (
+  <>
+    <div
+      className="fixed inset-0 bg-black/60 z-40 md:hidden"
+      onClick={() => setSidebarOpen(false)}
+    />
 
-        <div className="bg-green-950 text-white shadow-lg rounded-lg p-6">
+    <div className="fixed top-0 left-0 h-full z-50 md:hidden">
+      <Sidebar closeSidebar={() => setSidebarOpen(false)} />
+    </div>
+  </>
+)}
+
+  {/* Mobile Hamburger */}
+  <div className="flex-1 flex flex-col p-4 md:p-6 bg-black/90 backdrop-blur-sm min-h-screen">
+<div className="flex items-start mb-4 md:hidden">
+  <button
+    onClick={() => setSidebarOpen(true)}
+    className="text-white text-4xl leading-none"
+  >
+    ☰
+  </button>
+</div>
+
+        <div className="bg-green-950 text-white shadow-lg rounded-lg p-4 md:p-6">
 
           <h2 className="text-3xl font-extrabold bg-gradient-to-r from-yellow-400 via-yellow-200 to-yellow-500 bg-clip-text text-transparent mb-6">
             🌱 AI Insights
           </h2>
+{loading && (
+  <div className="mb-6 p-4 rounded-lg bg-green-800 border border-yellow-400">
+    <p className="text-yellow-300 text-lg">
+      🌱 AI is analyzing your batch data...
+    </p>
 
+    <p className="text-gray-300 text-sm mt-1">
+      Please wait while Herbal AI generates insights.
+    </p>
+  </div>
+)}
+{error && (
+  <div className="mb-6 p-4 rounded-lg bg-red-900 border border-red-400">
+    <p className="text-red-200">
+      ❌ {error}
+    </p>
+  </div>
+)}
+{/* AI Summary */}
+{insights.aiSummary && (
+  <div className="border-t border-gray-400 pt-4 mb-6">
+    <h3 className="text-xl font-bold text-yellow-300">
+      🤖 AI Summary
+    </h3>
+
+    <p className="text-lg mt-3 text-gray-200 whitespace-pre-line">
+      {insights.aiSummary}
+    </p>
+  </div>
+)}
           {/* Average Yield */}
           <div className="border-t border-gray-400 pt-4">
             <h3 className="text-xl font-bold text-yellow-300">
@@ -229,7 +194,8 @@ const maxYield = Math.max(
     Batch Yield Analysis
   </h3>
 
-  <div className="graphFrame mt-6">
+ <div className="overflow-x-auto mt-6">
+  <div className="graphFrame min-w-[650px]">
 
     {insights.chartData.map((batch, index) => {
 
@@ -259,9 +225,9 @@ const maxYield = Math.max(
           <div className="graphLabel">
             {batch.batchId}
           </div>
-
+  
         </div>
-
+  
       );
 
     })}
@@ -272,7 +238,7 @@ const maxYield = Math.max(
         </div>
 
       </div>
-
+  </div>
     </div>
   );
 }

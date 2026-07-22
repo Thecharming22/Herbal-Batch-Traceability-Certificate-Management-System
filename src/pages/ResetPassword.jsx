@@ -57,7 +57,7 @@ export default function ResetPassword() {
   };
 
   return (
-    <section className="relative h-screen w-full overflow-hidden">
+    <section className="relative min-h-screen w-full overflow-hidden px-4">
 
       <video
         className="absolute inset-0 w-full h-full object-cover"
@@ -73,18 +73,18 @@ export default function ResetPassword() {
 
       <div className="absolute inset-0 flex items-center justify-center">
 
-        <div
-          className="w-[500px] p-10 rounded-2xl"
-          style={{
-            background: "rgba(0,0,0,.88)",
-          }}
-        >
+     <div
+  className="w-[92%] max-w-[420px] sm:max-w-[500px] p-5 sm:p-10 rounded-2xl"
+  style={{
+    background: "rgba(0,0,0,.88)",
+  }}
+>
 
-          <h2 className="text-3xl text-white font-bold mb-8 text-center">
+        <h2 className="text-xl sm:text-3xl text-white font-bold mb-5 sm:mb-8 text-center">
             Reset Password
           </h2>
 
-          <form onSubmit={handleReset} className="space-y-5">
+         <form onSubmit={handleReset} className="space-y-4 sm:space-y-5">
 
             <div>
               <label className="text-white">New Password</label>
