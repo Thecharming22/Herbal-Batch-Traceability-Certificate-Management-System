@@ -188,7 +188,7 @@ Close
 
 )}
       {/* Left Logo */}
-<div className="flex-shrink-0">
+<div className="flex-shrink-0 w-[125px] sm:w-auto">
         <h1
           className="logo-text text-[12px] sm:text-2xl font-extrabold cursor-pointer transition-all duration-300 hover:scale-105 dark:text-green-400"
         >
@@ -197,7 +197,7 @@ Close
       </div>
 
       {/* Center Navigation */}
-      <div className="absolute left-1/2 -translate-x-1/2 flex gap-2 sm:gap-8 text-[10px] sm:text-base font-semibold">
+<div className="absolute left-[53%] -translate-x-1/2 flex gap-2 sm:left-1/2 sm:gap-8 text-[10px] sm:text-base font-semibold">
         <Link to="/" className="nav-link hover:text-green-600 dark:hover:text-green-400">Home</Link>
         <Link to="/about" className="nav-link hover:text-green-600 dark:hover:text-green-400">About</Link>
         <Link to="/login" className="nav-link hover:text-green-600 dark:hover:text-green-400">Login</Link>

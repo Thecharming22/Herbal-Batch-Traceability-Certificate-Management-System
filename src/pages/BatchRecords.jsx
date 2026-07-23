@@ -198,21 +198,21 @@ headers: {
   <div className="flex flex-col md:flex-row min-h-screen">
 
     {/* Desktop Sidebar */}
-    <div className="hidden md:flex md:w-64">
-      <Sidebar />
-    </div>
+    <div className="hidden lg:flex lg:w-64">
+  <Sidebar />
+</div>
 
     {/* Mobile Sidebar */}
     {sidebarOpen && (
       <>
-        <div
-          className="fixed inset-0 bg-black/60 z-40 md:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
+      <div
+  className="fixed inset-0 bg-black/60 z-40 lg:hidden"
+  onClick={() => setSidebarOpen(false)}
+/>
 
-        <div className="fixed top-0 left-0 h-full z-50 md:hidden">
-          <Sidebar closeSidebar={() => setSidebarOpen(false)} />
-        </div>
+<div className="fixed top-0 left-0 h-full z-50 lg:hidden">
+  <Sidebar closeSidebar={() => setSidebarOpen(false)} />
+</div>
       </>
     )}
 
@@ -227,7 +227,7 @@ headers: {
       {/* Mobile Hamburger */}
       <button
         onClick={() => setSidebarOpen(true)}
-        className="md:hidden text-white text-4xl mb-4"
+        className="lg:hidden text-white text-4xl mb-4"
       >
         ☰
       </button>
@@ -268,7 +268,7 @@ headers: {
           <>
 
             {/* Desktop Table */}
-            <div className="hidden md:block border-t border-gray-400 pt-4 mt-4">
+           <div className="hidden lg:block border-t border-gray-400 pt-4 mt-4">
 
               <div className="grid grid-cols-9 gap-4 font-semibold text-lg mb-4">
                 <span>Batch ID</span>
@@ -392,7 +392,7 @@ headers: {
             </div>
 
             {/* Mobile Cards */}
-            <div className="md:hidden space-y-4 mt-5">
+         <div className="lg:hidden space-y-4 mt-5">
 
              {batches.length === 0 ? (
   <div className="text-center p-8">

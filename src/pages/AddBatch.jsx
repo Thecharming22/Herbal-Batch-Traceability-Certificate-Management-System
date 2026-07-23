@@ -64,21 +64,21 @@ const [sidebarOpen, setSidebarOpen] = useState(false);
   <div className="flex flex-col md:flex-row min-h-screen">
 
   {/* Desktop Sidebar */}
-  <div className="hidden md:flex md:w-64">
-    <Sidebar closeSidebar={() => {}} />
-  </div>
+<div className="hidden lg:flex lg:w-64">
+  <Sidebar closeSidebar={() => {}} />
+</div>
 
   {/* Mobile Sidebar */}
   {sidebarOpen && (
     <>
       <div
-        className="fixed inset-0 bg-black/60 z-40 md:hidden"
-        onClick={() => setSidebarOpen(false)}
-      />
+  className="fixed inset-0 bg-black/60 z-40 lg:hidden"
+  onClick={() => setSidebarOpen(false)}
+/>
 
-      <div className="fixed top-0 left-0 h-full z-50 md:hidden">
-        <Sidebar closeSidebar={() => setSidebarOpen(false)} />
-      </div>
+<div className="fixed top-0 left-0 h-full z-50 lg:hidden">
+  <Sidebar closeSidebar={() => setSidebarOpen(false)} />
+</div>
     </>
   )}
 
@@ -91,15 +91,16 @@ const [sidebarOpen, setSidebarOpen] = useState(false);
   >
     <div className="flex items-center p-4">
 
+{!sidebarOpen && (
   <button
     onClick={() => setSidebarOpen(true)}
-    className="md:hidden text-white text-4xl"
+    className="lg:hidden text-white text-4xl"
   >
     ☰
   </button>
-
+)}
 </div>
-<div className="flex-1 flex items-center justify-center p-4 md:p-6">
+<div className="flex-1 flex items-center justify-center p-4 sm:p-5 lg:p-6">
         <div className="book">
           {/* Cover text */}
           <div className="cover">

@@ -77,35 +77,39 @@ useEffect(() => {
  <div className="flex flex-col md:flex-row min-h-screen">
 
   {/* Desktop Sidebar */}
-  <div className="hidden md:flex md:w-64">
-    <Sidebar />
-  </div>
+<div className="hidden lg:flex lg:w-64">
+  <Sidebar />
+</div>
 
-  {/* Mobile Sidebar */}
-  {sidebarOpen && (
-    <>
-      <div
-        className="fixed inset-0 bg-black/60 z-40 md:hidden"
-        onClick={() => setSidebarOpen(false)}
-      />
+{/* Tablet + Mobile Sidebar */}
+{sidebarOpen && (
+  <>
+    {/* Dark overlay */}
+    <div
+      className="fixed inset-0 bg-black/60 z-40 lg:hidden"
+      onClick={() => setSidebarOpen(false)}
+    />
 
-      <div className="fixed top-0 left-0 h-full z-50 md:hidden">
-        <Sidebar closeSidebar={() => setSidebarOpen(false)} />
-      </div>
-    </>
+    {/* Sidebar */}
+    <div className="fixed top-0 left-0 h-full z-50 lg:hidden">
+      <Sidebar closeSidebar={() => setSidebarOpen(false)} />
+    </div>
+  </>
+)}
+
+<div className="flex-1 relative">
+
+  {/* Hamburger: Tablet + Mobile only */}
+  {!sidebarOpen && (
+    <div className="absolute top-4 left-4 lg:hidden z-30">
+      <button
+        onClick={() => setSidebarOpen(true)}
+        className="text-white text-3xl bg-black/40 rounded-lg px-3 py-1"
+      >
+        ☰
+      </button>
+    </div>
   )}
-
- <div className="flex-1 relative">
-
-  {/* Hamburger */}
-  <div className="absolute top-4 left-4 md:hidden z-50">
-    <button
-      onClick={() => setSidebarOpen(true)}
-      className="text-white text-4xl"
-    >
-      ☰
-    </button>
-  </div>
 
   <div
     className="profile-container"

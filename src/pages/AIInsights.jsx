@@ -81,27 +81,27 @@ export default function AIInsights() {
   );
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen">
+   <div className="flex flex-col lg:flex-row min-h-screen">
 
       {/* ================= DESKTOP SIDEBAR ================= */}
 
-      <div className="hidden md:flex md:w-64">
-        <Sidebar />
-      </div>
+     <div className="hidden lg:flex lg:w-64">
+  <Sidebar />
+</div>
 
 
       {/* ================= MOBILE SIDEBAR ================= */}
 
       {sidebarOpen && (
         <>
-          <div
-            className="fixed inset-0 bg-black/60 z-40 md:hidden"
-            onClick={() =>
-              setSidebarOpen(false)
-            }
-          />
+         <div
+  className="fixed inset-0 bg-black/60 z-40 lg:hidden"
+  onClick={() =>
+    setSidebarOpen(false)
+  }
+/>
 
-          <div className="fixed top-0 left-0 h-full z-50 md:hidden">
+<div className="fixed top-0 left-0 h-full z-50 lg:hidden">
             <Sidebar
               closeSidebar={() =>
                 setSidebarOpen(false)
@@ -114,11 +114,11 @@ export default function AIInsights() {
 
       {/* ================= MAIN CONTENT ================= */}
 
-      <div className="flex-1 flex flex-col p-4 md:p-6 bg-black/90 backdrop-blur-sm min-h-screen">
+      <div className="flex-1 flex flex-col p-2 sm:p-3 md:p-6 lg:p-8 bg-black/90 backdrop-blur-sm min-h-screen">
 
         {/* Mobile Hamburger */}
 
-        <div className="flex items-start mb-4 md:hidden">
+     <div className="flex items-start mb-4 lg:hidden">
 
           <button
             onClick={() =>
@@ -134,7 +134,7 @@ export default function AIInsights() {
 
         {/* ================= MAIN AI PANEL ================= */}
 
-        <div className="bg-gradient-to-br from-green-950 via-green-900 to-black text-white shadow-2xl rounded-3xl p-4 md:p-8 border border-green-700/40">
+        <div className="bg-gradient-to-br from-green-950 via-green-900 to-black text-white shadow-2xl rounded-2xl md:rounded-3xl p-3 sm:p-4 md:p-8 border border-green-700/40">
 
 
           {/* ================= HEADER ================= */}
@@ -228,7 +228,7 @@ export default function AIInsights() {
 
           {insights.aiSummary && (
 
-            <div className="mb-8 p-6 rounded-2xl bg-gradient-to-r from-green-800/60 to-green-950/60 border border-yellow-400/30 shadow-lg">
+            <div className="mb-5 md:mb-8 p-4 sm:p-5 md:p-6 rounded-xl md:rounded-2xl bg-gradient-to-r from-green-800/60 to-green-950/60 border border-yellow-400/30 shadow-lg">
 
               <div className="flex items-center gap-3 mb-4">
 
@@ -238,7 +238,7 @@ export default function AIInsights() {
 
                 <div>
 
-                  <h3 className="text-xl font-bold text-yellow-300">
+                 <h3 className="text-lg md:text-xl font-bold text-yellow-300">
                     AI Summary
                   </h3>
 
@@ -266,13 +266,12 @@ export default function AIInsights() {
 
             {/* Average Yield */}
 
-            <div className="p-6 rounded-2xl bg-white/5 border border-green-500/30 hover:border-yellow-400/50 transition">
+     <div className="p-4 sm:p-5 md:p-6 rounded-xl md:rounded-2xl bg-white/5 border border-green-500/30 hover:border-yellow-400/50 transition">
 
               <p className="text-gray-400">
                 Average Yield
               </p>
-
-              <h3 className="text-4xl font-extrabold text-yellow-300 mt-3">
+<h3 className="text-3xl sm:text-4xl font-extrabold text-yellow-300 mt-2 md:mt-3">
 
                 {insights.averageYield}
 
@@ -321,7 +320,7 @@ export default function AIInsights() {
 
           <div className="mb-8">
 
-            <h3 className="text-2xl font-bold text-yellow-300 mb-4">
+          <h3 className="text-xl md:text-2xl font-bold text-yellow-300 mb-3 md:mb-4">
               🔔 AI Alerts
             </h3>
 
@@ -335,7 +334,7 @@ export default function AIInsights() {
 
                     <div
                       key={index}
-                      className="p-4 rounded-xl bg-green-800/40 border border-green-600/30 hover:border-yellow-400/40 transition"
+                      className="p-3 sm:p-4 rounded-lg md:rounded-xl text-sm sm:text-base bg-green-800/40 border border-green-600/30 hover:border-yellow-400/40 transition"
                     >
                       {alert}
                     </div>
@@ -358,13 +357,13 @@ export default function AIInsights() {
 
           {/* ================= CHART ================= */}
 
-          <div className="p-6 rounded-2xl bg-black/30 border border-green-700/40">
+        <div className="p-3 sm:p-4 md:p-6 rounded-xl md:rounded-2xl bg-black/30 border border-green-700/40">
 
             <div className="flex justify-between items-center mb-6">
 
               <div>
 
-                <h3 className="text-2xl font-bold text-yellow-300">
+               <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-yellow-300">
                   📈 Batch Yield Analysis
                 </h3>
 

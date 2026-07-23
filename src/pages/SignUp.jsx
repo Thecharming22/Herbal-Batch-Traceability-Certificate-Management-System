@@ -106,7 +106,7 @@ if (res.ok) {
       {/* Main Container */}
       <div className="absolute inset-0 flex items-center justify-center">
 
-        <div className="loginContainer">
+    <div className="loginContainer signupContainer">
 
           {/* LEFT GREEN PANEL */}
           <div className="loginRight">
@@ -258,7 +258,7 @@ if (res.ok) {
   style={{
     display: "flex",
     alignItems: "center",
-    margin: "18px 0",
+    margin: "10px 0",
   }}
 >
  <hr
@@ -272,7 +272,7 @@ if (res.ok) {
   <span
     style={{
       color: "white",
-      margin: "0 12px",
+   margin: "0 8px",
       fontWeight: "600",
     }}
   >

@@ -22,7 +22,7 @@ export default function Sidebar({ closeSidebar })  {
       {closeSidebar && (
   <button
     onClick={closeSidebar}
-    className="md:hidden self-end text-white text-3xl mb-4"
+className="lg:hidden self-end text-white text-3xl mb-4"
   >
     ✕
   </button>

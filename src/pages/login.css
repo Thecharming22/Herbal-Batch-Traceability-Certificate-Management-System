@@ -201,94 +201,163 @@ background-position:300%;
 }
 /* ================= MOBILE RESPONSIVE ================= */
 
-@media (max-width:768px){
 
-.loginContainer{
-    width:95%;
-    max-width:380px;
-    min-height:500px;
-    display:flex;
-    flex-direction:row;   /* desktop jaisa */
-    border-radius:20px;
+@media (max-width: 767px) {
+.remember {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 5px;
 }
-
-.loginLeft{
-    width:55%;
-    padding:18px 14px;
-}
-
-.loginRight{
-    width:45%;
-    padding:18px 12px;
-}
-
-.loginTitle{
-    font-size:18px;
-    margin-bottom:6px;
-}
-
-.loginSub{
-    font-size:10px;
-    margin-bottom:16px;
-}
-
-.fieldLabel{
-    font-size:11px;
-}
-
-.inputBox{
-    padding:8px 10px;
-    margin-bottom:10px;
-}
-
-.inputBox input{
-    font-size:11px;
-}
-
-.inputBox svg{
-    font-size:12px;
-}
-
-.remember{
-    font-size:10px;
-    margin-bottom:15px;
-}
-
-.loginBtn{
-    padding:10px;
-    font-size:12px;
-}
-
-.signupText{
-    font-size:11px;
-    margin-top:15px;
-}
-
-.loginRight h1{
-    font-size:18px;
-    line-height:1.3;
-    margin-bottom:10px;
-}
-
-.loginRight p{
-    font-size:10px;
-    line-height:18px;
-}
-
-}
-@media (max-width:768px){
-
-  .inputBox{
-    padding:10px 14px;
+  .loginContainer {
+    width: 95%;
+    max-width: 380px;
+    min-height: 500px;
+    display: flex;
+    flex-direction: row;
+    border-radius: 20px;
   }
 
-  .loginBtn{
-    padding:12px;
-    font-size:15px;
+  .loginLeft {
+    width: 55%;
+    padding: 18px 14px;
   }
 
-  .inputBox input{
-    font-size:14px;
+  .loginRight {
+    width: 45%;
+    padding: 18px 12px;
   }
 
+  .loginTitle {
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+
+  .loginSub {
+    font-size: 10px;
+    margin-bottom: 16px;
+  }
+
+  .fieldLabel {
+    font-size: 11px;
+    margin-bottom: 5px;
+  }
+
+  .inputBox {
+    padding: 8px 10px;
+    margin-bottom: 10px;
+  }
+
+  .inputBox input {
+    font-size: 11px;
+  }
+
+  .inputBox svg {
+    font-size: 12px;
+  }
+
+  .loginBtn {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .signupText {
+    font-size: 11px;
+    margin-top: 15px;
+  }
+
+  .loginRight h1 {
+    font-size: 18px;
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+
+  .loginRight p {
+    font-size: 10px;
+    line-height: 18px;
+  }
+
+  /* LOGIN CARD SAME SIZE AS SIGNUP CARD */
+  .loginContainer:not(.signupContainer) {
+    min-height: 500px;
+  }
+ .remember {
+    gap: 15px;
+    font-size: 10px;
+  }
+
+}
+
+
+/* ================= TABLET: 768px - 1023px ================= */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+
+  .loginContainer {
+    width: 85%;
+    max-width: 700px;
+    min-height: 560px;
+  }
+
+  /* SIGNUP CARD */
+  .signupContainer {
+    min-height: 560px;
+  }
+
+  .signupContainer .loginLeft {
+    padding: 38px;
+  }
+
+  .signupContainer .loginRight {
+    padding: 40px;
+  }
+
+  .signupContainer .loginTitle {
+    font-size: 28px;
+  }
+
+  .signupContainer .loginSub {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  .signupContainer .fieldLabel {
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+
+  .signupContainer .inputBox {
+    height: 42px;
+    padding: 0 10px;
+    margin-bottom: 10px;
+  }
+
+  .signupContainer .inputBox input {
+    font-size: 14px;
+  }
+
+  .signupContainer .inputBox svg {
+    font-size: 15px;
+  }
+
+  .signupContainer .loginBtn {
+    height: 42px;
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .signupContainer .signupText {
+    font-size: 13px;
+    margin-top: 15px;
+  }
+
+  .signupContainer .loginRight h1 {
+    font-size: 28px;
+  }
+
+  .signupContainer .loginRight p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
 }

@@ -252,19 +252,19 @@ open &&
 style={{
   width:
     window.innerWidth < 768
-      ? "340px"
+      ? "300px"
       : `${size.width}px`,
 
   height:
     window.innerWidth < 768
-      ? "500px"
+      ? "420px"
       : `${size.height}px`,
 }}
 
 className="
 fixed
-bottom-3
-right-3
+bottom-5
+right-5
 z-[9999]
 rounded-3xl
 overflow-hidden

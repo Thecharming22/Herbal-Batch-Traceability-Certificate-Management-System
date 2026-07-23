@@ -13,21 +13,25 @@ import Loader from "../components/ui/Loader";
 function Sidebar({ closeSidebar }) {
   return (
     <div className="w-64 h-full p-5 md:p-6 shadow flex flex-col bg-[#041C0A]">
-      <button
-        onClick={closeSidebar}
-        className="md:hidden self-end text-white text-3xl mb-4"
-      >
-        ✕
-      </button>
+
+      {/* Close button only for mobile/tablet sidebar */}
+      {closeSidebar && (
+        <button
+          onClick={closeSidebar}
+          className="lg:hidden self-end text-white text-3xl mb-4"
+        >
+          ✕
+        </button>
+      )}
 
       {/* Sidebar Title */}
       <h1 className="font-extrabold text-3xl mb-6 bg-gradient-to-r from-yellow-400 via-yellow-200 to-yellow-500 bg-clip-text text-transparent animate-shine">
         🌿 Herbal Traceability
       </h1>
 
-      {/* Quick Menu Section */}
       <div className="mb-6 p-4">
         <ul className="space-y-4 text-lg font-semibold text-white">
+
           <li>
             <Link
               to="/add-batch"
@@ -37,6 +41,7 @@ function Sidebar({ closeSidebar }) {
               Add Batch
             </Link>
           </li>
+
           <li>
             <Link
               to="/batch-records"
@@ -46,6 +51,7 @@ function Sidebar({ closeSidebar }) {
               Batch Records
             </Link>
           </li>
+
           <li>
             <Link
               to="/ai-insights"
@@ -55,6 +61,7 @@ function Sidebar({ closeSidebar }) {
               AI Insights
             </Link>
           </li>
+
           <li>
             <Link
               to="/profile"
@@ -64,6 +71,7 @@ function Sidebar({ closeSidebar }) {
               Profile
             </Link>
           </li>
+
         </ul>
       </div>
     </div>
@@ -312,25 +320,26 @@ export default function Dashboard() {
   return (
     <div className="flex flex-col md:flex-row min-h-screen overflow-x-hidden">
       {/* Desktop Sidebar */}
-      <div className="hidden md:flex md:w-64">
-        <Sidebar closeSidebar={() => {}} />
-      </div>
+      <div className="hidden lg:flex lg:w-64">
+  <Sidebar closeSidebar={() => {}} />
+</div>
 
-      {/* Mobile Sidebar */}
-      {sidebarOpen && (
-        <>
-          <div
-            className="fixed inset-0 bg-black/60 z-40 md:hidden"
-            onClick={() => setSidebarOpen(false)}
-          ></div>
-          <div className="fixed top-0 left-0 h-full z-50 md:hidden">
-            <Sidebar closeSidebar={() => setSidebarOpen(false)} />
-          </div>
-        </>
-      )}
+  {/* Mobile + Tablet Sidebar */}
+{sidebarOpen && (
+  <>
+    <div
+      className="fixed inset-0 bg-black/60 z-40 lg:hidden"
+      onClick={() => setSidebarOpen(false)}
+    ></div>
+
+    <div className="fixed top-0 left-0 h-full z-50 lg:hidden">
+      <Sidebar closeSidebar={() => setSidebarOpen(false)} />
+    </div>
+  </>
+)}
 
       {/* Right Section */}
-      <div className="flex-1 flex flex-col p-6 bg-black/90 backdrop-blur-sm min-h-screen">
+     <div className="flex-1 flex flex-col p-3 sm:p-4 lg:p-6 bg-black/90 backdrop-blur-sm min-h-screen">
         {loading && (
           <div className="flex-1 flex items-center justify-center">
             <Loader />
@@ -347,18 +356,20 @@ export default function Dashboard() {
         {!loading && !error && (
           <>
             {/* Top Section */}
-            <div className="flex items-center gap-3 mb-8">
+          <div className="flex items-center gap-3 mb-8">
               {/* Mobile Hamburger */}
-              <button
-                onClick={() => setSidebarOpen(true)}
-                className="md:hidden text-white text-4xl shrink-0"
-              >
-                ☰
-              </button>
+              {!sidebarOpen && (
+  <button
+    onClick={() => setSidebarOpen(true)}
+    className="lg:hidden text-white text-3xl shrink-0"
+  >
+    ☰
+  </button>
+)}
 
               {/* Center: Search Bar */}
-              <div className="flex-1 w-full md:w-auto flex justify-center md:px-6">
-                <div className="flex items-center border-2 border-black rounded px-3 py-2 w-full md:w-1/2 bg-gradient-to-r from-gray-200 to-gray-300">
+              <div className="flex-1 w-full lg:w-auto flex justify-center lg:px-6">
+               <div className="flex items-center border-2 border-black rounded px-3 py-2 w-full lg:w-1/2 bg-gradient-to-r from-gray-200 to-gray-300">
                   <span className="mr-2 text-gray-700 text-lg">🔍</span>
                   <input
                     type="text"
@@ -405,7 +416,7 @@ export default function Dashboard() {
                   </button>
 
                   {showNotifications && (
-                    <div className="absolute right-0 mt-3 w-80 bg-white rounded-xl shadow-xl border border-gray-200 z-50 overflow-hidden">
+                    <div className="absolute right-0 mt-3 w-[260px] max-w-[calc(100vw-24px)] bg-white rounded-xl shadow-xl border border-gray-200 z-50 overflow-hidden">
                       <div className="flex items-center justify-between px-4 py-3 border-b border-gray-700 bg-black">
                         <h3 className="text-lg font-extrabold bg-gradient-to-r from-yellow-400 via-yellow-200 to-yellow-500 bg-clip-text text-transparent animate-shine">
                           Notifications
@@ -556,7 +567,7 @@ export default function Dashboard() {
             </div>
 
             {/* Summary Cards */}
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6 mb-12">
+       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-6 mb-12">
               <div className="bg-green-950 backdrop-blur-sm text-white shadow-lg p-6 rounded-lg">
                 <h3 className="text-2xl font-extrabold bg-gradient-to-r from-yellow-400 via-yellow-200 to-yellow-500 bg-clip-text text-transparent animate-shine">
                   Total Batches
@@ -682,7 +693,7 @@ export default function Dashboard() {
               </h2>
 
               {/* Desktop Table View */}
-              <div className="hidden md:block overflow-x-auto mt-4">
+              <div className="hidden lg:block overflow-x-auto mt-4">
                 <div className="min-w-[900px]">
                   <div className="grid grid-cols-7 gap-4 font-semibold text-lg pb-2 border-b border-gray-700">
                     <span>Batch ID</span>
@@ -729,7 +740,7 @@ export default function Dashboard() {
               </div>
 
               {/* Mobile Card View */}
-              <div className="md:hidden space-y-4 mt-5">
+          <div className="lg:hidden space-y-4 mt-5">
                 {filteredBatches.map((batch) => (
                   <div key={batch._id} className="bg-green-900 rounded-xl p-4">
                     <p>
