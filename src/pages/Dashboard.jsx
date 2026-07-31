@@ -89,6 +89,9 @@ export default function Dashboard() {
 
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [theme, setTheme] = useState(
+  localStorage.getItem("theme") || "light"
+);
   const notificationRef = useRef(null);
   const profileRef = useRef(null);
   const recentRecordsRef = useRef(null);
@@ -119,7 +122,15 @@ export default function Dashboard() {
     fetchDashboard();
     fetchNotifications();
   }, []);
+useEffect(() => {
+  if (theme === "dark") {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
 
+  localStorage.setItem("theme", theme);
+}, [theme]);
   useEffect(() => {
     function handleClickOutside(event) {
       // Close notification dropdown
@@ -544,6 +555,39 @@ export default function Dashboard() {
                           </div>
                         </Link>
 
+  {/* Dark / Light Mode */}
+  <button
+    onClick={() =>
+      setTheme(theme === "dark" ? "light" : "dark")
+    }
+    className="w-full flex items-center justify-between px-3 py-3 rounded-lg bg-green-900/40 hover:bg-green-800/60 transition"
+  >
+    <div className="flex items-center gap-3">
+      <span className="text-lg">
+        {theme === "dark" ? "☀️" : "🌙"}
+      </span>
+
+      <p className="text-sm font-semibold text-white">
+        {theme === "dark" ? "Light Mode" : "Dark Mode"}
+      </p>
+    </div>
+
+    <div
+      className={`w-11 h-6 rounded-full p-1 transition ${
+        theme === "dark"
+          ? "bg-green-600"
+          : "bg-gray-600"
+      }`}
+    >
+      <div
+        className={`w-4 h-4 bg-white rounded-full transition-transform ${
+          theme === "dark"
+            ? "translate-x-5"
+            : "translate-x-0"
+        }`}
+      ></div>
+    </div>
+  </button>
                         <button
                           onClick={() => {
                             localStorage.removeItem("token");
