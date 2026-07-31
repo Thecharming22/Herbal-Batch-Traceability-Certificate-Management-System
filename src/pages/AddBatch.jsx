@@ -28,7 +28,7 @@ const [sidebarOpen, setSidebarOpen] = useState(false);
   localStorage.getItem("token") ||
   sessionStorage.getItem("token");
 
-    const res = await fetch("http://localhost:5000/api/batches", {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/batches`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

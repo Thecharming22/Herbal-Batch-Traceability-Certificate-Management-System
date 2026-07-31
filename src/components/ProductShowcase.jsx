@@ -17,14 +17,14 @@ useEffect(() => {
 
     try {
 
-      const rosemaryRes = await fetch(
-        "http://localhost:5000/api/batches/certificate/rosemary",
-        {
-          headers:{
-            Authorization:`Bearer ${token}`
-          }
-        }
-      );
+   const rosemaryRes = await fetch(
+  `${import.meta.env.VITE_API_URL}/api/batches/certificate/rosemary`,
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+);
 
 
       const rosemaryData = await rosemaryRes.json();
@@ -36,7 +36,7 @@ useEffect(() => {
 
 
       const chamomileRes = await fetch(
-        "http://localhost:5000/api/batches/certificate/chamomile",
+         `${import.meta.env.VITE_API_URL}/api/batches/certificate/chamomile`,
         {
           headers:{
             Authorization:`Bearer ${token}`

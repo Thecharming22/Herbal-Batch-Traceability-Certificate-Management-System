@@ -18,7 +18,7 @@ const [rememberMe, setRememberMe] = useState(false);
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/login", {
+      const res = await fetch( `${import.meta.env.VITE_API_URL}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -227,7 +227,7 @@ const [rememberMe, setRememberMe] = useState(false);
   className="loginBtn"
   onClick={() => {
     window.location.href =
-      "http://localhost:5000/api/auth/google";
+       `${import.meta.env.VITE_API_URL}/api/auth/google`;
   }}
 >
   Continue with Google

@@ -28,7 +28,7 @@ useEffect(() => {
       }
 
       const res = await fetch(
-        "http://localhost:5000/api/auth/profile",
+        `${import.meta.env.VITE_API_URL}/api/auth/profile`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -174,8 +174,7 @@ const token =
   localStorage.getItem("token") ||
   sessionStorage.getItem("token");
 
-await fetch(
-  "http://localhost:5000/api/users/profile-image",
+await fetch( `${import.meta.env.VITE_API_URL}/api/users/profile-image`,
   {
     method: "PUT",
 

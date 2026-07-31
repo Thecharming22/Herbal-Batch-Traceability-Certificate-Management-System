@@ -36,7 +36,7 @@ if (password.length < 6) {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/signup", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -52,7 +52,7 @@ if (password.length < 6) {
 if (res.ok) {
 
   // Login immediately after signup
-  const loginRes = await fetch("http://localhost:5000/api/auth/login", {
+  const loginRes = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -292,7 +292,7 @@ if (res.ok) {
   className="loginBtn"
   onClick={() => {
     window.location.href =
-      "http://localhost:5000/api/auth/google";
+      `${import.meta.env.VITE_API_URL}/api/auth/google `;
   }}
 >
   Continue with Google
