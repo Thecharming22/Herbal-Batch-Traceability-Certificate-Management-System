@@ -14,9 +14,13 @@ import session from "express-session";
 import "./config/passport.js";
 import chatRoutes from "./routes/chat.js";
 import aiRoutes from "./routes/ai.js";
+
 const app = express();
+
+app.set("trust proxy", 1);
+
 const authLimiter = rateLimit({
-  windowMs:  15 * 60 * 1000, // 15 minutes
+  windowMs: 15 * 60 * 1000,
   max: 5,
   message: {
     message:
@@ -25,35 +29,40 @@ const authLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
 });
+
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
   message: "Too many requests. Please try again later."
 });
+
 app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      "https://herbal-batch-traceability-certificate-management-m1d8r366y.vercel.app"
+      process.env.FRONTEND_URL,
     ],
     credentials: true,
   })
 );
+
 app.use(
-  cors({
-    origin: [
-      "http://localhost:3000",
-      process.env.FRONTEND_URL, // https://herbal-batch-traceability-certifica-six.vercel.app
-    ],
-    credentials: true,
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: true,
+      sameSite: "none",
+    },
   })
 );
 
 app.use(passport.initialize());
-
 app.use(passport.session());
 app.use(express.json({ limit: "50mb" }));
 app.use(limiter);
+
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
@@ -61,6 +70,7 @@ app.use("/api/batches", batchRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/ai", aiRoutes);
+
 // Error handler
 app.use(errorHandler);
 
