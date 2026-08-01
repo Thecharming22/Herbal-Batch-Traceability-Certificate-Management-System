@@ -243,7 +243,7 @@ router.get(
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    failureRedirect: "http://localhost:3000/login",
+    failureRedirect: `${process.env.FRONTEND_URL}/login`,   // ✅
     session: true,
   }),
 
@@ -256,7 +256,7 @@ router.get(
     );
 
     res.redirect(
-      `http://localhost:3000/google-success?token=${token}`
+      `${process.env.FRONTEND_URL}/google-success?token=${token}`   // ✅
     );
 
   }
