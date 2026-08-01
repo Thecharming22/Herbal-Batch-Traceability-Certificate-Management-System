@@ -30,7 +30,12 @@ const limiter = rateLimit({
   max: 100,
   message: "Too many requests. Please try again later."
 });
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  })
+);
 app.use(
   session({
     secret: "mysecretkey",

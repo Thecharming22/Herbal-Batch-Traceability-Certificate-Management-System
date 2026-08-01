@@ -25,47 +25,9 @@ router.get("/", auth, async (req, res, next) => {
     next(err);
   }
 });
-
-// GET single user by ID
-router.get("/:id", auth, async (req, res, next) => {
-  try {
-    const user = await User.findById(req.params.id);
-    if (!user) return res.status(404).json({ message: "User not found" });
-    res.status(200).json(user);
-  } catch (err) {
-    next(err);
-  }
-});
-// PUT update user
-router.put("/:id", auth, async (req, res, next) => {
-  try {
-    const updatedUser = await User.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
-    if (!updatedUser) return res.status(404).json({ message: "User not found" });
-    res.status(200).json(updatedUser);
-  } catch (err) {
-    next(err);
-  }
-});
-
-// DELETE user
-router.delete("/:id", auth, async (req, res, next) => {
-  try {
-    const deletedUser = await User.findByIdAndDelete(req.params.id);
-    if (!deletedUser) return res.status(404).json({ message: "User not found" });
-    res.status(200).json({ message: "User deleted successfully" });
-  } catch (err) {
-    next(err);
-  }
-});
-// UPDATE profile image
-
 router.put("/profile-image", auth, async (req, res) => {
 console.log("Profile image route hit");
-console.log(req.params.id);
+console.log(req.user.id);
 console.log(req.body.profileImage?.slice(0,50));
   try {
 
@@ -99,5 +61,42 @@ console.log(req.body.profileImage?.slice(0,50));
   }
 
 });
+// GET single user by ID
+router.get("/:id", auth, async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.status(200).json(user);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// PUT update user
+router.put("/:id", auth, async (req, res, next) => {
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    if (!updatedUser) return res.status(404).json({ message: "User not found" });
+    res.status(200).json(updatedUser);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// DELETE user
+router.delete("/:id", auth, async (req, res, next) => {
+  try {
+    const deletedUser = await User.findByIdAndDelete(req.params.id);
+    if (!deletedUser) return res.status(404).json({ message: "User not found" });
+    res.status(200).json({ message: "User deleted successfully" });
+  } catch (err) {
+    next(err);
+  }
+});
+
 
 export default router;
