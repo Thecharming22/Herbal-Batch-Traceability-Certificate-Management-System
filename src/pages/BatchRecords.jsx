@@ -90,8 +90,8 @@ const handleDelete = (id) => {
                 localStorage.getItem("token") ||
                 sessionStorage.getItem("token");
 
-              const res = await fetch(
-               `${import.meta.env.VITE_API_URL}api/batches/${id}`,
+           const res = await fetch(
+               `${import.meta.env.VITE_API_URL}/api/batches/${id}`,
                 {
                   method: "DELETE",
                   headers: {
