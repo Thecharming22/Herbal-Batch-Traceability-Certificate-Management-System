@@ -35,7 +35,7 @@ const fetchBatches = async () => {
       sessionStorage.getItem("token");
 
     const res = await fetch(
-      "http://localhost:5000/api/batches",
+       `${import.meta.env.VITE_API_URL}/api/batches`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -91,7 +91,7 @@ const handleDelete = (id) => {
                 sessionStorage.getItem("token");
 
               const res = await fetch(
-                `http://localhost:5000/api/batches/${id}`,
+               `${import.meta.env.VITE_API_URL}api/batches/${id}`,
                 {
                   method: "DELETE",
                   headers: {
@@ -131,7 +131,7 @@ const handleUpdate = async () => {
   try {
       const token =localStorage.getItem("token") || sessionStorage.getItem("token")
     const res = await fetch(
-      `http://localhost:5000/api/batches/${editingBatch._id}`,
+       `${import.meta.env.VITE_API_URL}/api/batches/${editingBatch._id}`,
       {
         method: "PUT",
 headers: {
@@ -165,7 +165,7 @@ const handleDispatch = async () => {
   localStorage.getItem("token") ||
   sessionStorage.getItem("token");
     const res = await fetch(
-      `http://localhost:5000/api/batches/${dispatchingBatch._id}/dispatch`,
+      `${import.meta.env.VITE_API_URL}/api/batches/${dispatchingBatch._id}/dispatch`,
       {
         method: "PATCH",
        

@@ -160,7 +160,7 @@ useEffect(() => {
     try {
       const token =
         localStorage.getItem("token") || sessionStorage.getItem("token");
-      await fetch("http://localhost:5000/api/notifications/read", {
+      await fetch( `${import.meta.env.VITE_API_URL}/api/notifications/read`, {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -181,7 +181,7 @@ useEffect(() => {
 
   const fetchNotifications = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/notifications", {
+      const res = await fetch( `${import.meta.env.VITE_API_URL}/api/notifications`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -207,7 +207,7 @@ useEffect(() => {
       setError("");
 
     await new Promise((resolve) => setTimeout(resolve, 3000));
-      const res = await fetch("http://localhost:5000/api/batches", {
+      const res = await fetch( `${import.meta.env.VITE_API_URL}/api/batches`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
