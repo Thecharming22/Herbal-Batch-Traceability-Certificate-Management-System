@@ -38,7 +38,7 @@ app.use(
 );
 app.use(
   session({
-    secret: "mysecretkey",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
   })
@@ -56,8 +56,6 @@ app.use("/api/batches", batchRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/ai", aiRoutes);
-console.log(process.env.GOOGLE_CLIENT_ID);
-console.log(process.env.GOOGLE_CLIENT_SECRET);
 // Error handler
 app.use(errorHandler);
 
