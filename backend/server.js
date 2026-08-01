@@ -40,10 +40,12 @@ app.use(
   })
 );
 app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
+  cors({
+    origin: [
+      "http://localhost:3000",
+      process.env.FRONTEND_URL, // https://herbal-batch-traceability-certifica-six.vercel.app
+    ],
+    credentials: true,
   })
 );
 
