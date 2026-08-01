@@ -32,7 +32,10 @@ const limiter = rateLimit({
 });
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL,
+    origin: [
+      "http://localhost:3000",
+      "https://herbal-batch-traceability-certificate-management-m1d8r366y.vercel.app"
+    ],
     credentials: true,
   })
 );
