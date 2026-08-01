@@ -7,7 +7,7 @@ import User from "../models/User.js";
 import auth from "../middleware/auth.js";
 import { body, validationResult } from "express-validator";
 import rateLimit from "express-rate-limit";
-import transporter from "../utils/mailer.js";
+import resend from "../utils/mailer.js";
 const router = express.Router();
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -168,9 +168,8 @@ router.post("/forgot-password", async (req, res) => {
 
     const resetLink =
       `${process.env.FRONTEND_URL}/reset-password/${token}`;
-
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
+await resend.emails.send({
+      from: "onboarding@resend.dev",
       to: user.email,
       subject: "Reset Password",
       html: `
