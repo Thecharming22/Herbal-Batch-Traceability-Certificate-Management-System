@@ -195,6 +195,8 @@ shadow-xl
 animate-bounce
 text-sm
 pointer-events-auto
+max-w-[200px]
+sm:max-w-[240px]
 "
 >
 

@@ -10,7 +10,7 @@ background: #cfcfcf;
   display: flex;
   justify-content: flex-start;
   align-items: flex-end;
-  gap: 180px;
+  gap: 60px;
 
   overflow-x: auto;
   overflow-y: hidden;
@@ -18,9 +18,13 @@ background: #cfcfcf;
   position: relative;
 }
 
-/* Hide scrollbar */
 .graphFrame::-webkit-scrollbar {
-  display: none;
+  height: 6px;
+}
+
+.graphFrame::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
 }
 
 /* Horizontal Grid Lines */
