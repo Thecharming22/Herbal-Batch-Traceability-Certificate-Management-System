@@ -178,6 +178,7 @@ flex
 flex-col
 items-end
 gap-2
+pointer-events-none
 "
 >
 
@@ -193,6 +194,7 @@ rounded-2xl
 shadow-xl
 animate-bounce
 text-sm
+pointer-events-auto
 "
 >
 
@@ -226,6 +228,7 @@ Ask about herbs & traceability
   hover:scale-110
   transition
   animate-pulse
+  pointer-events-auto
   "
 >
   🌿
