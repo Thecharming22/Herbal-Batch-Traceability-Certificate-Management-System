@@ -84,3 +84,65 @@ Backend runs at:
 
 http://localhost:5000
 
+## 5. Install Frontend Dependencies
+
+Open a new terminal, then:
+
+cd frontend
+npm install
+
+## 6. Create a `.env` file inside the frontend folder
+
+VITE_API_URL=http://localhost:5000
+
+## 7. Start Frontend
+
+npm run dev
+
+Frontend runs at:
+
+http://localhost:3000
+
+## 8. 🚀 Deployment
+
+## Live URLs
+
+- **Frontend (Vercel):** https://herbal-batch-traceability-certifica-six.vercel.app
+- **Backend (Render):** https://herbal-batch-traceability-certificate.onrender.com
+
+## Deployment Tech Stack
+
+- **Frontend Hosting:** Vercel
+- **Backend Hosting:** Render
+- **Database:** MongoDB Atlas
+- **Authentication:** JWT + Google OAuth 2.0 (Passport.js)
+- **Email Service:** Resend API
+
+## Environment Variables
+
+### Frontend (Vercel)
+VITE_API_URL=https://herbal-batch-traceability-certificate.onrender.com
+
+### Backend (Render)
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+SESSION_SECRET=your_session_secret
+FRONTEND_URL=https://herbal-batch-traceability-certifica-six.vercel.app
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+GOOGLE_CALLBACK_URL=https://herbal-batch-traceability-certificate.onrender.com/api/auth/google/callback
+RESEND_API_KEY=your_resend_api_key
+
+## Known Limitations on Free Tier
+
+- **Render free tier spin-down:** The backend spins down after 15 minutes of inactivity. The first request after an idle period may take 30–60 seconds to respond while the server wakes up.
+- **Email sending (Resend):** The free tier of Resend only allows sending emails to the verified account email unless a custom domain is verified. As a result, the "Forgot Password" feature currently sends reset emails only to the registered Resend account email during testing/demo.
+- **MongoDB Atlas:** Uses a free-tier (M0) cluster, which has limited storage and connection throughput.
+
+## Deployment Process
+
+1. Frontend deployed to **Vercel** via GitHub integration, with `VITE_API_URL` set as an environment variable pointing to the Render backend.
+2. Backend deployed to **Render** as a Web Service, with all required environment variables configured via the Render dashboard.
+3. CORS on the backend is configured to allow requests only from the deployed Vercel frontend origin.
+4. Google OAuth redirect URIs and JavaScript origins updated in Google Cloud Console to include the production URLs.
+5. A `vercel.json` rewrite rule was added to support client-side routing (React Router) on page refresh/direct URL access.
