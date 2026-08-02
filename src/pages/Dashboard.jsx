@@ -367,7 +367,7 @@ useEffect(() => {
         {!loading && !error && (
           <>
             {/* Top Section */}
-          <div className="flex items-center gap-3 mb-8">
+       <div className="flex items-center gap-3 mb-8 min-w-0">
               {/* Mobile Hamburger */}
               {!sidebarOpen && (
   <button
@@ -379,7 +379,7 @@ useEffect(() => {
 )}
 
               {/* Center: Search Bar */}
-              <div className="flex-1 w-full lg:w-auto flex justify-center lg:px-6">
+              <div className="flex-1 w-full lg:w-auto flex justify-center lg:px-6 min-w-0">
                <div className="flex items-center border-2 border-black rounded px-3 py-2 w-full lg:w-1/2 bg-gradient-to-r from-gray-200 to-gray-300">
                   <span className="mr-2 text-gray-700 text-lg">🔍</span>
                   <input
